@@ -1,6 +1,8 @@
+package views;
+
 import java.util.Scanner;
 
-public class ApplicationsView {
+public class ApplicationProcessView {
 
     public void displayMenu() {
 

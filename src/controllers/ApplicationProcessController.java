@@ -1,17 +1,21 @@
-public class ApplicationsController {
+package controllers;
 
-    private ApplicationsView applicationsView;
+import views.ApplicationProcessView;
 
-    ApplicationsController() {
-        this.applicationsView = new ApplicationsView();
+public class ApplicationProcessController {
+
+    private ApplicationProcessView applicationProcessView;
+
+    public ApplicationProcessController() {
+        this.applicationProcessView = new ApplicationProcessView();
     }
 
     public void start() {
         boolean isAppRunning = true;
 
         while (isAppRunning) {
-            applicationsView.displayMenu();
-            String userInput = applicationsView.getUserInput();
+            applicationProcessView.displayMenu();
+            String userInput = applicationProcessView.getUserInput();
             switch (userInput) {
                 case "1":
                     break;
@@ -21,7 +25,7 @@ public class ApplicationsController {
                     isAppRunning = false;
                     break;
                 default:
-                    applicationsView.displayWrongInputMessage();
+                    applicationProcessView.displayWrongInputMessage();
             }
         }
     }
