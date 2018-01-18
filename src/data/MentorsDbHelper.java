@@ -23,7 +23,7 @@ public class MentorsDbHelper extends DbHelper {
                     MentorsEntry.COLUMN_PHONE_NUMBER + " TEXT NOT NULL," +
                     MentorsEntry.COLUMN_EMAIL + " TEXT NOT NULL," +
                     MentorsEntry.COLUMN_CITY + " TEXT NOT NULL," +
-                    MentorsEntry.COLUMN_FAVOURITE_NUMBER + " INTEGER," +
+                    MentorsEntry.COLUMN_FAVOURITE_NUMBER + " INTEGER" +
                     "); ";
             statement.executeUpdate(sql);
             statement.close();
