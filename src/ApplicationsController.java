@@ -1,11 +1,17 @@
 public class ApplicationsController {
 
+    private ApplicationsView applicationsView;
+
+    ApplicationsController() {
+        this.applicationsView = new ApplicationsView();
+    }
+
     public void start() {
         boolean isAppRunning = true;
 
         while (isAppRunning) {
-            rootView.displayMenu();
-            String userInput = rootView.getUserInput();
+            applicationsView.displayMenu();
+            String userInput = applicationsView.getUserInput();
             switch (userInput) {
                 case "1":
                     break;
@@ -15,7 +21,7 @@ public class ApplicationsController {
                     isAppRunning = false;
                     break;
                 default:
-                    rootView.displayWrongInputMessage();
+                    applicationsView.displayWrongInputMessage();
             }
         }
     }
