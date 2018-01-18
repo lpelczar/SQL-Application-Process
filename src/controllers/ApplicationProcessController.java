@@ -1,13 +1,19 @@
 package controllers;
 
+import data.ApplicantsDbHelper;
+import data.MentorsDbHelper;
 import views.ApplicationProcessView;
 
 public class ApplicationProcessController {
 
     private ApplicationProcessView applicationProcessView;
+    private MentorsDbHelper mentorsDbHelper;
+    private ApplicantsDbHelper applicantsDbHelper;
 
     public ApplicationProcessController() {
         this.applicationProcessView = new ApplicationProcessView();
+        this.mentorsDbHelper = new MentorsDbHelper();
+        this.applicantsDbHelper = new ApplicantsDbHelper();
     }
 
     public void start() {
@@ -18,6 +24,7 @@ public class ApplicationProcessController {
             String userInput = applicationProcessView.getUserInput();
             switch (userInput) {
                 case "1":
+                    createDatabase();
                     break;
                 case "2":
                     break;
@@ -28,6 +35,10 @@ public class ApplicationProcessController {
                     applicationProcessView.displayWrongInputMessage();
             }
         }
+    }
+
+    private void createDatabase() {
+        mentorsDbHelper.create();
     }
 
 }
