@@ -3,11 +3,11 @@ package data;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class DbHelper {
+class DbHelper {
 
     private static final String DATABASE_NAME = "applications.db";
 
-    public Connection getConnection() {
+    Connection getConnection() {
 
         Connection connection = null;
 
