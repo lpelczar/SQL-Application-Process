@@ -21,6 +21,4 @@ public class DbHelper {
         System.out.println("Opened database successfully");
         return connection;
     }
-
-    
 }
