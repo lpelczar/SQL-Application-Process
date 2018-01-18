@@ -1,3 +1,5 @@
+package main;
+
 import controllers.ApplicationProcessController;
 
 public class Application {
