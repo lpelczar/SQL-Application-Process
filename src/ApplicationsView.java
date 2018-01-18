@@ -11,4 +11,8 @@ public class ApplicationsView {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
+
+    public void displayWrongInputMessage() {
+        System.out.println("Wrong input!");
+    }
 }
