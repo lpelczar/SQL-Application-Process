@@ -43,7 +43,7 @@ public class ApplicantsDbHelper extends DbHelper {
 
     public List<String> addApplicant(String firstName, String lastName, String phoneNumber, String email, int applicationCode) {
 
-        String statement = "INSERT INTO applicants (" +
+        String statement = "INSERT INTO " + tableName + " (" +
                 "first_name," + "last_name," + "phone_number," + "email," + "application_code)" +
                 "VALUES (" + firstName + "," + lastName + "," + phoneNumber + "," + email + "," + applicationCode +
                 ")" + "SELECT * FROM applicants WHERE application_code =" + applicationCode + ";";

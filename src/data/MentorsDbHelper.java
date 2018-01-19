@@ -12,7 +12,10 @@ public class MentorsDbHelper extends DbHelper {
 
     public List<String> getFirstNameAndLastNameColumn() {
 
-        String statement = "SELECT first_name, last_name FROM " + tableName +";";
+        String statement = "SELECT " +
+                           MentorsEntry.COLUMN_FIRST_NAME + "," +
+                           MentorsEntry.COLUMN_LAST_NAME +
+                           " FROM " + tableName + ";";
         List<String> results = new ArrayList<>();
 
         openConnection();
@@ -31,7 +34,8 @@ public class MentorsDbHelper extends DbHelper {
 
     public List<String> getNickNamesOfMentorsAtMiskolc() {
 
-        String statement = "SELECT nick_name FROM " + tableName +" WHERE city = \"Miskolc\";";
+        String statement = "SELECT " + MentorsEntry.COLUMN_NICK_NAME +
+                           " FROM " + tableName +" WHERE city = \"Miskolc\";";
         List<String> results = new ArrayList<>();
 
         openConnection();
