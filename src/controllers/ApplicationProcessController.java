@@ -4,6 +4,8 @@ import data.ApplicantsDbHelper;
 import data.MentorsDbHelper;
 import views.ApplicationProcessView;
 
+import java.util.List;
+
 public class ApplicationProcessController {
 
     private ApplicationProcessView applicationProcessView;
@@ -24,7 +26,7 @@ public class ApplicationProcessController {
             String userInput = applicationProcessView.getUserInput();
             switch (userInput) {
                 case "1":
-                    createDatabase();
+                    showFirstAndLastNameColumnsFromMentors();
                     break;
                 case "2":
                     break;
@@ -37,8 +39,9 @@ public class ApplicationProcessController {
         }
     }
 
-    private void createDatabase() {
-        mentorsDbHelper.create();
-    }
+    private void showFirstAndLastNameColumnsFromMentors() {
 
+        List<String> results = mentorsDbHelper.getFirstNameAndLastNameColumn();
+        applicationProcessView.displayResults(results);
+    }
 }
