@@ -1,16 +1,15 @@
 package data;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
+import java.sql.*;
 
 class DbHelper {
 
-    private static final String DATABASE_NAME = "applications.db";
+    private static final String DATABASE_NAME = "application_process.db";
+    private Connection connection;
+    private ResultSet resultSet;
+    private Statement statement;
 
-    Connection getConnection() {
-
-        Connection connection = null;
+    void openConnection() {
 
         try {
             Class.forName("org.sqlite.JDBC");
@@ -20,25 +19,32 @@ class DbHelper {
             System.exit(0);
         }
         System.out.println("Opened database successfully");
+    }
+
+    void closeConnection() {
+
+        try {
+            if (connection != null)
+                connection.close();
+            if (statement != null)
+                statement.close();
+            if (resultSet != null)
+                resultSet.close();
+        } catch (SQLException e) {
+            System.out.println("Problem closing connections");
+        }
+
+    }
+
+    Connection getConnection() {
         return connection;
     }
 
-    public void executeStatement(String sqlStatement) {
+    ResultSet getResultSet() {
+        return resultSet;
+    }
 
-        Connection connection = getConnection();
-        Statement statement = null;
-
-        try {
-            connection.setAutoCommit(false);
-            statement = connection.createStatement();
-            statement.executeUpdate(sqlStatement);
-            statement.close();
-            connection.commit();
-            connection.close();
-        } catch ( Exception e ) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
-        }
-        System.out.println("Records created successfully");
+    Statement getStatement() {
+        return statement;
     }
 }
