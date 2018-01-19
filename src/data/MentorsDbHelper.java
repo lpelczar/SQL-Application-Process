@@ -9,14 +9,12 @@ import java.util.*;
 
 public class MentorsDbHelper extends DbHelper {
 
-    private final String tableName = "mentors";
-
     public List<String> getFirstNameAndLastNameColumn() {
 
         String statement = "SELECT " +
                            MentorsEntry.COLUMN_FIRST_NAME + "," +
                            MentorsEntry.COLUMN_LAST_NAME +
-                           " FROM " + tableName + ";";
+                           " FROM " + MentorsEntry.TABLE_NAME + ";";
         List<String> results = new ArrayList<>();
 
         openConnection();
@@ -36,7 +34,7 @@ public class MentorsDbHelper extends DbHelper {
     public List<String> getNickNamesOfMentorsAtMiskolc() {
 
         String statement = "SELECT " + MentorsEntry.COLUMN_NICK_NAME +
-                           " FROM " + tableName +" WHERE city = \"Miskolc\";";
+                           " FROM " + MentorsEntry.TABLE_NAME +" WHERE city = \"Miskolc\";";
         List<String> results = new ArrayList<>();
 
         openConnection();
@@ -54,7 +52,7 @@ public class MentorsDbHelper extends DbHelper {
 
     public List<Mentor> getAllMentors() {
 
-        String statement = "SELECT * FROM " + tableName + ";" ;
+        String statement = "SELECT * FROM " + MentorsEntry.TABLE_NAME + ";" ;
 
         List<Mentor> mentors = new ArrayList<>();
         openConnection();
