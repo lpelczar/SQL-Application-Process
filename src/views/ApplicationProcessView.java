@@ -1,6 +1,6 @@
 package views;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class ApplicationProcessView {
 
@@ -31,5 +31,19 @@ public class ApplicationProcessView {
 
     public void displayWrongInputMessage() {
         System.out.println("Wrong input!");
+    }
+
+    public void displayResults(List<String> results) {
+        System.out.println("\nResults:");
+        for (String s : results) {
+            System.out.println(s);
+        }
+        displayPressAnyKeyToContinueMessage();
+    }
+
+    private void displayPressAnyKeyToContinueMessage() {
+        System.out.print("\nPress any key to continue.");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
     }
 }
