@@ -40,7 +40,7 @@ public class ApplicantsDbHelper extends DbHelper {
         return results;
     }
 
-    public List<String> addApplicant(Applicant applicant) {
+    public List<String> addApplicantAndGetHisData(Applicant applicant) {
 
         String sqlStatement = createAddingApplicantStatement(applicant);
         String selectSqlStatement = "SELECT * FROM " + ApplicantsEntry.TABLE_NAME + " WHERE " +
@@ -153,6 +153,21 @@ public class ApplicantsDbHelper extends DbHelper {
             closeConnection();
         }
         return applicants;
+    }
+
+    public boolean addApplicant(Applicant applicant) {
+        String insertStatement = createAddingApplicantStatement(applicant);
+
+        openConnection();
+        try {
+            update(insertStatement);
+            return true;
+        } catch (SQLException e) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        } finally {
+            closeConnection();
+        }
+        return false;
     }
 
 }

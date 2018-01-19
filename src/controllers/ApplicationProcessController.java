@@ -58,6 +58,9 @@ public class ApplicationProcessController {
                 case "10":
                     addMentor();
                     break;
+                case "12":
+                    addApplicant();
+                    break;
                 case "0":
                     isAppRunning = false;
                     break;
@@ -95,7 +98,7 @@ public class ApplicationProcessController {
 
         Applicant applicant = new Applicant("Markus", "Schaffarzyk", "003620/725-2666",
                 "djnovus@groovecoverage.com", 54823);
-        List<String> results = applicantsDbHelper.addApplicant(applicant);
+        List<String> results = applicantsDbHelper.addApplicantAndGetHisData(applicant);
         applicationProcessView.displayResults(results);
     }
 
@@ -163,6 +166,20 @@ public class ApplicationProcessController {
             }
         }
         return Integer.parseInt(input);
+    }
+
+    private void addApplicant() {
+
+        String firstName = getStringUserInput("Enter first name:");
+        String lastName = getStringUserInput("Enter last name:");
+        String phoneNumber = getStringUserInput("Enter phone number:");
+        String email = getStringUserInput("Enter email:");
+        int applicationCode = getIntUserInput("Enter application code:");
+        boolean isAdded = applicantsDbHelper.addApplicant(new Applicant(firstName, lastName,
+                phoneNumber, email, applicationCode));
+        if (isAdded) {
+            applicationProcessView.displaySuccessfullyAdded();
+        }
     }
 }
 
