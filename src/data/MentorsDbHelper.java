@@ -2,6 +2,7 @@ package data;
 
 
 import data.MentorsContract.MentorsEntry;
+import models.Mentor;
 
 import java.sql.*;
 import java.util.*;
@@ -25,7 +26,7 @@ public class MentorsDbHelper extends DbHelper {
             results.add(resultSet.getString(MentorsEntry.COLUMN_FIRST_NAME) + " " +
                         resultSet.getString(MentorsEntry.COLUMN_LAST_NAME));
         } catch (SQLException e) {
-            System.out.println("Error reading first and last name column from mentor");
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
         } finally {
             closeConnection();
         }
@@ -44,10 +45,36 @@ public class MentorsDbHelper extends DbHelper {
             while (resultSet.next())
                 results.add(resultSet.getString(MentorsEntry.COLUMN_NICK_NAME));
         } catch (SQLException e) {
-            System.out.println("Error reading nick name column from mentor");
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
         } finally {
             closeConnection();
         }
         return results;
+    }
+
+    public List<Mentor> getAllMentors() {
+
+        String statement = "SELECT * FROM " + tableName + ";" ;
+
+        List<Mentor> mentors = new ArrayList<>();
+        openConnection();
+        try {
+            ResultSet resultSet = query(statement);
+            while (resultSet.next())
+                mentors.add(new Mentor(
+                        resultSet.getInt(MentorsEntry.COLUMN_ID),
+                        resultSet.getString(MentorsEntry.COLUMN_FIRST_NAME),
+                        resultSet.getString(MentorsEntry.COLUMN_LAST_NAME),
+                        resultSet.getString(MentorsEntry.COLUMN_NICK_NAME),
+                        resultSet.getString(MentorsEntry.COLUMN_PHONE_NUMBER),
+                        resultSet.getString(MentorsEntry.COLUMN_EMAIL),
+                        resultSet.getString(MentorsEntry.COLUMN_CITY),
+                        resultSet.getInt(MentorsEntry.COLUMN_FAVOURITE_NUMBER)));
+        } catch (SQLException e) {
+            System.out.println("Error reading nick name column from mentor");
+        } finally {
+            closeConnection();
+        }
+        return mentors;
     }
 }

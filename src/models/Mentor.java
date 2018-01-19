@@ -2,6 +2,7 @@ package models;
 
 public class Mentor {
 
+    private int id;
     private String firstName;
     private String lastName;
     private String nickName;
@@ -10,8 +11,9 @@ public class Mentor {
     private String city;
     private int favouriteNumber;
 
-    public Mentor(String firstName, String lastName, String nickName, String phoneNumber,
+    public Mentor(int id, String firstName, String lastName, String nickName, String phoneNumber,
                   String email, String city, int favouriteNumber) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.nickName = nickName;
@@ -19,6 +21,10 @@ public class Mentor {
         this.email = email;
         this.city = city;
         this.favouriteNumber = favouriteNumber;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getFirstName() {
@@ -47,5 +53,11 @@ public class Mentor {
 
     public int getFavouriteNumber() {
         return favouriteNumber;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("ID: %d %s %s %s %s %s %s %d", id, firstName, lastName, nickName,
+                phoneNumber, email, city, favouriteNumber);
     }
 }

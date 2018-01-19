@@ -47,6 +47,9 @@ public class ApplicationProcessController {
                 case "7":
                     deleteApplicantsWithEmailEnding();
                     break;
+                case "8":
+                    listAllMentors();
+                    break;
                 case "0":
                     isAppRunning = false;
                     break;
@@ -98,5 +101,10 @@ public class ApplicationProcessController {
 
         if (applicantsDbHelper.deleteApplicantWithEmailEnding())
             applicationProcessView.displaySuccessfullyDeleted();
+    }
+
+    private void listAllMentors() {
+
+        applicationProcessView.displayMentors(mentorsDbHelper.getAllMentors());
     }
 }

@@ -1,5 +1,7 @@
 package views;
 
+import models.Mentor;
+
 import java.util.*;
 
 public class ApplicationProcessView {
@@ -16,6 +18,8 @@ public class ApplicationProcessView {
                 " 5. Add Markus Schaffarzyk to applicants and show his data\n" +
                 " 6. Change applicant with name Jemima and last name Foreman phone number to 003670/223-7459\n" +
                 " 7. Delete all applicants with email ending %@mauriseu.net\n" +
+                " 8. List all mentors\n" +
+                " 9. List all applicants\n" +
                 " 0. Exit");
     }
 
@@ -54,6 +58,14 @@ public class ApplicationProcessView {
 
     public void displaySuccessfullyDeleted() {
         System.out.println("Successfully deleted!");
+        displayPressAnyKeyToContinueMessage();
+    }
+
+    public void displayMentors(List<Mentor> mentors) {
+        System.out.println("\nAll mentors:");
+        for (Mentor m : mentors) {
+            System.out.println(m);
+        }
         displayPressAnyKeyToContinueMessage();
     }
 }

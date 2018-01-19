@@ -54,7 +54,8 @@ public class ApplicantsDbHelper extends DbHelper {
             update(sqlStatement);
             ResultSet resultSet = query(selectSqlStatement);
             while (resultSet.next()) {
-                results.add(resultSet.getString(ApplicantsEntry.COLUMN_FIRST_NAME) + " " +
+                results.add(resultSet.getString(ApplicantsEntry.COLUMN_ID) + " " +
+                            resultSet.getString(ApplicantsEntry.COLUMN_FIRST_NAME) + " " +
                             resultSet.getString(ApplicantsEntry.COLUMN_LAST_NAME) + " " +
                             resultSet.getString(ApplicantsEntry.COLUMN_PHONE_NUMBER) + " " +
                             resultSet.getString(ApplicantsEntry.COLUMN_EMAIL) + " " +

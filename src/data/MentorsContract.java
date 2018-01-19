@@ -4,6 +4,7 @@ public class MentorsContract {
 
     public static final class MentorsEntry {
         public static final String TABLE_NAME = "mentors";
+        public static final String COLUMN_ID = "id";
         public static final String COLUMN_FIRST_NAME = "first_name";
         public static final String COLUMN_LAST_NAME = "last_name";
         public static final String COLUMN_NICK_NAME = "nick_name";
