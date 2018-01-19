@@ -9,9 +9,8 @@ public class ApplicationProcessView {
         clearConsole();
         System.out.println("Welcome to application process app!" +
                 "\nWhat do you want to do?\n" +
-                " 1. Create database and import data from .csv files\n" +
-                " 2. Get first_name, last_name columns from mentors table\n" +
-                " 3. Get the nick_name-s of all mentors working at Miskolc\n" +
+                " 1. Get first_name, last_name columns from mentors table\n" +
+                " 2. Get the nick_name-s of all mentors working at Miskolc\n" +
                 " 0. Exit");
     }
 
