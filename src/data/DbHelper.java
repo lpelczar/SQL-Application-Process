@@ -36,7 +36,7 @@ class DbHelper {
 
     }
 
-    ResultSet readData(String sqlStatement) throws SQLException {
+    ResultSet query(String sqlStatement) throws SQLException {
 
         statement = connection.createStatement();
         return statement.executeQuery(sqlStatement);

@@ -2,6 +2,7 @@ package controllers;
 
 import data.ApplicantsDbHelper;
 import data.MentorsDbHelper;
+import models.Applicant;
 import views.ApplicationProcessView;
 
 import java.util.List;
@@ -75,5 +76,8 @@ public class ApplicationProcessController {
 
     private void addApplicantAndShowHisData() {
 
+        List<String> results = applicantsDbHelper.addApplicant("Markus", "Schaffarzyk", "003620/725-2666",
+                "djnovus@groovecoverage.com", 54823);
+        applicationProcessView.displayResults(results);
     }
 }

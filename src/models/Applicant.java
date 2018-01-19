@@ -6,9 +6,9 @@ public class Applicant {
     private String lastName;
     private String phoneNumber;
     private String email;
-    private String applicationCode;
+    private int applicationCode;
 
-    public Applicant(String firstName, String lastName, String phoneNumber, String email, String applicationCode) {
+    public Applicant(String firstName, String lastName, String phoneNumber, String email, int applicationCode) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
@@ -32,7 +32,7 @@ public class Applicant {
         return email;
     }
 
-    public String getApplicationCode() {
+    public int getApplicationCode() {
         return applicationCode;
     }
 }
