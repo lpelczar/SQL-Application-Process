@@ -131,5 +131,28 @@ public class ApplicantsDbHelper extends DbHelper {
         return false;
     }
 
+    public List<Applicant> getAllApplicants() {
+
+        String statement = "SELECT * FROM " + ApplicantsEntry.TABLE_NAME + ";" ;
+
+        List<Applicant> applicants = new ArrayList<>();
+        openConnection();
+        try {
+            ResultSet resultSet = query(statement);
+            while (resultSet.next())
+                applicants.add(new Applicant(
+                        resultSet.getInt(ApplicantsEntry.COLUMN_ID),
+                        resultSet.getString(ApplicantsEntry.COLUMN_FIRST_NAME),
+                        resultSet.getString(ApplicantsEntry.COLUMN_LAST_NAME),
+                        resultSet.getString(ApplicantsEntry.COLUMN_PHONE_NUMBER),
+                        resultSet.getString(ApplicantsEntry.COLUMN_EMAIL),
+                        resultSet.getInt(ApplicantsEntry.COLUMN_APPLICATION_CODE)));
+        } catch (SQLException e) {
+            System.out.println("Error reading nick name column from mentor");
+        } finally {
+            closeConnection();
+        }
+        return applicants;
+    }
 
 }

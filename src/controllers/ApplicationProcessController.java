@@ -50,6 +50,9 @@ public class ApplicationProcessController {
                 case "8":
                     listAllMentors();
                     break;
+                case "9":
+                    listAllApplicants();
+                    break;
                 case "0":
                     isAppRunning = false;
                     break;
@@ -104,7 +107,10 @@ public class ApplicationProcessController {
     }
 
     private void listAllMentors() {
-
         applicationProcessView.displayMentors(mentorsDbHelper.getAllMentors());
+    }
+
+    private void listAllApplicants() {
+        applicationProcessView.displayApplicants(applicantsDbHelper.getAllApplicants());
     }
 }

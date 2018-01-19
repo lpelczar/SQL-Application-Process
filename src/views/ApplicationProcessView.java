@@ -1,5 +1,6 @@
 package views;
 
+import models.Applicant;
 import models.Mentor;
 
 import java.util.*;
@@ -65,6 +66,14 @@ public class ApplicationProcessView {
         System.out.println("\nAll mentors:");
         for (Mentor m : mentors) {
             System.out.println(m);
+        }
+        displayPressAnyKeyToContinueMessage();
+    }
+
+    public void displayApplicants(List<Applicant> applicants) {
+        System.out.println("\nAll applicants:");
+        for (Applicant a : applicants) {
+            System.out.println(a);
         }
         displayPressAnyKeyToContinueMessage();
     }
