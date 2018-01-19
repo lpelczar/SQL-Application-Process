@@ -51,7 +51,7 @@ public class ApplicantsDbHelper extends DbHelper {
 
         openConnection();
         try {
-            insert(sqlStatement);
+            update(sqlStatement);
             ResultSet resultSet = query(selectSqlStatement);
             while (resultSet.next()) {
                 results.add(resultSet.getString(ApplicantsEntry.COLUMN_FIRST_NAME) + " " +
@@ -82,6 +82,32 @@ public class ApplicantsDbHelper extends DbHelper {
                 "'" + applicant.getPhoneNumber() + "'," +
                 "'" + applicant.getEmail() + "'," +
                 applicant.getApplicationCode() + ");" ;
+    }
+
+    public List<String> updateApplicantAndGetPhoneNumber() {
+
+        String sqlStatement = "UPDATE " + tableName +
+                " SET " + ApplicantsEntry.COLUMN_PHONE_NUMBER + " = '003670/223-7459'" +
+                " WHERE " + ApplicantsEntry.COLUMN_FIRST_NAME + " = 'Jemima' AND " +
+                ApplicantsEntry.COLUMN_LAST_NAME + " = 'Foreman';" ;
+        String selectSqlStatement = "SELECT " + ApplicantsEntry.COLUMN_PHONE_NUMBER + " FROM " + tableName +
+                " WHERE " + ApplicantsEntry.COLUMN_FIRST_NAME + " = 'Jemima' AND " +
+                ApplicantsEntry.COLUMN_LAST_NAME + " = 'Foreman';" ;
+        List<String> results = new ArrayList<>();
+
+        openConnection();
+        try {
+            update(sqlStatement);
+            ResultSet resultSet = query(selectSqlStatement);
+            while (resultSet.next()) {
+                results.add(resultSet.getString(ApplicantsEntry.COLUMN_PHONE_NUMBER));
+            }
+        } catch (SQLException e) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        } finally {
+            closeConnection();
+        }
+        return results;
     }
 
 

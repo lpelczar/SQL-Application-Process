@@ -41,6 +41,9 @@ public class ApplicationProcessController {
                 case "5":
                     addApplicantAndShowHisData();
                     break;
+                case "6":
+                    updateApplicantAndShowHisPhoneNumber();
+                    break;
                 case "0":
                     isAppRunning = false;
                     break;
@@ -79,6 +82,12 @@ public class ApplicationProcessController {
         Applicant applicant = new Applicant("Markus", "Schaffarzyk", "003620/725-2666",
                 "djnovus@groovecoverage.com", 54823);
         List<String> results = applicantsDbHelper.addApplicant(applicant);
+        applicationProcessView.displayResults(results);
+    }
+
+    private void updateApplicantAndShowHisPhoneNumber() {
+
+        List<String> results = applicantsDbHelper.updateApplicantAndGetPhoneNumber();
         applicationProcessView.displayResults(results);
     }
 }

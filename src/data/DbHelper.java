@@ -41,7 +41,7 @@ class DbHelper {
         return statement.executeQuery(sqlStatement);
     }
 
-    void insert(String sqlStatement) throws SQLException {
+    void update(String sqlStatement) throws SQLException {
 
         connection.setAutoCommit(false);
         statement = connection.createStatement();
