@@ -52,6 +52,8 @@ public class ApplicantsDbHelper extends DbHelper {
         openConnection();
         try {
             update(sqlStatement);
+            closeConnection();
+            openConnection();
             ResultSet resultSet = query(selectSqlStatement);
             while (resultSet.next()) {
                 results.add(resultSet.getString(ApplicantsEntry.COLUMN_ID) + " " +
@@ -100,6 +102,8 @@ public class ApplicantsDbHelper extends DbHelper {
         openConnection();
         try {
             update(sqlStatement);
+            closeConnection();
+            openConnection();
             ResultSet resultSet = query(selectSqlStatement);
             while (resultSet.next()) {
                 results.add(resultSet.getString(ApplicantsEntry.COLUMN_PHONE_NUMBER));
