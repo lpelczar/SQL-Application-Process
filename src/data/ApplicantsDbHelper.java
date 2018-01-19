@@ -45,11 +45,21 @@ public class ApplicantsDbHelper extends DbHelper {
     public List<String> addApplicant(Applicant applicant) {
 
         String sqlStatement = createAddingApplicantStatement(applicant);
+        String selectSqlStatement = "SELECT * FROM " + tableName + " WHERE " +
+                ApplicantsEntry.COLUMN_APPLICATION_CODE + " = " + applicant.getApplicationCode() + ";";
         List<String> results = new ArrayList<>();
 
         openConnection();
         try {
             insert(sqlStatement);
+            ResultSet resultSet = query(selectSqlStatement);
+            while (resultSet.next()) {
+                results.add(resultSet.getString(ApplicantsEntry.COLUMN_FIRST_NAME) + " " +
+                            resultSet.getString(ApplicantsEntry.COLUMN_LAST_NAME) + " " +
+                            resultSet.getString(ApplicantsEntry.COLUMN_PHONE_NUMBER) + " " +
+                            resultSet.getString(ApplicantsEntry.COLUMN_EMAIL) + " " +
+                            resultSet.getString(ApplicantsEntry.COLUMN_APPLICATION_CODE));
+            }
         } catch (SQLException e) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
         } finally {
