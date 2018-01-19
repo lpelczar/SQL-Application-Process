@@ -34,6 +34,12 @@ public class ApplicationProcessController {
                 case "3":
                     showFullNameAndPhoneNumberOfApplicantsWithNameCarol();
                     break;
+                case "4":
+                    showFullNameAndPhoneNumberOfApplicantsWithDomain();
+                    break;
+                case "5":
+                    addApplicantAndShowHisData();
+                    break;
                 case "0":
                     isAppRunning = false;
                     break;
@@ -57,7 +63,17 @@ public class ApplicationProcessController {
 
     private void showFullNameAndPhoneNumberOfApplicantsWithNameCarol() {
 
-        List<String> results = applicantsDbHelper.getFullNameAndPhoneNumberOfWithNameCarol();
+        List<String> results = applicantsDbHelper.getFullNameAndPhoneNumberWithNameCarol();
         applicationProcessView.displayResults(results);
+    }
+
+    private void showFullNameAndPhoneNumberOfApplicantsWithDomain() {
+
+        List<String> results = applicantsDbHelper.getFullNameAndPhoneNumberWithDomain();
+        applicationProcessView.displayResults(results);
+    }
+
+    private void addApplicantAndShowHisData() {
+
     }
 }

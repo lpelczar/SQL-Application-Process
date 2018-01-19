@@ -12,7 +12,10 @@ public class ApplicationProcessView {
                 " 1. Get first_name, last_name columns from mentors table\n" +
                 " 2. Get the nick_name-s of all mentors working at Miskolc\n" +
                 " 3. Show full name and phone number of all applicants with name Carol\n" +
-                " 4. Show full name and phone number of all applicants with name Carol\n" +
+                " 4. Show full name and phone number of all applicants with domain adipiscingenimmi.edu\n" +
+                " 5. Add Markus Schaffarzyk to applicants and show his data\n" +
+                " 6. Change applicant with name Jemima and last name Foreman phone number to 003670/223-7459 and show her data\n" +
+                " 7. Delete all applicants with email ending %@mauriseu.net\n" +
                 " 0. Exit");
     }
 

@@ -7,9 +7,15 @@ import java.util.*;
 
 public class ApplicantsDbHelper extends DbHelper {
 
-    public List<String> getFullNameAndPhoneNumberOfWithNameCarol() {
+    public List<String> getFullNameAndPhoneNumberWithNameCarol() {
 
         String statement = "WHERE first_name = \"Carol\";";
+        return getFullNameAndPhoneNumberOfApplicant(statement);
+    }
+
+    public List<String> getFullNameAndPhoneNumberWithDomain() {
+
+        String statement = "WHERE email LIKE \"%@adipiscingenimmi.edu\";";
         return getFullNameAndPhoneNumberOfApplicant(statement);
     }
 
