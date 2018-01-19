@@ -8,8 +8,6 @@ import java.util.*;
 
 public class ApplicantsDbHelper extends DbHelper {
 
-    private final String tableName = "applicants";
-
     public List<String> getFullNameAndPhoneNumberWithNameCarol() {
 
         String statement = "WHERE first_name = \"Carol\";";
@@ -25,7 +23,7 @@ public class ApplicantsDbHelper extends DbHelper {
     private List<String> getFullNameAndPhoneNumberOfApplicant(String whereStatement) {
 
         String statement = "SELECT first_name || \" \" || last_name AS full_name, phone_number\n" +
-                           "FROM " + tableName + " " + whereStatement;
+                           "FROM " + ApplicantsEntry.TABLE_NAME + " " + whereStatement;
 
         List<String> results = new ArrayList<>();
         openConnection();
@@ -45,7 +43,7 @@ public class ApplicantsDbHelper extends DbHelper {
     public List<String> addApplicant(Applicant applicant) {
 
         String sqlStatement = createAddingApplicantStatement(applicant);
-        String selectSqlStatement = "SELECT * FROM " + tableName + " WHERE " +
+        String selectSqlStatement = "SELECT * FROM " + ApplicantsEntry.TABLE_NAME + " WHERE " +
                 ApplicantsEntry.COLUMN_APPLICATION_CODE + " = " + applicant.getApplicationCode() + ";";
 
         List<String> results = new ArrayList<>();
@@ -73,7 +71,7 @@ public class ApplicantsDbHelper extends DbHelper {
 
     private String createAddingApplicantStatement(Applicant applicant) {
 
-        return "INSERT INTO " + tableName + " (" +
+        return "INSERT INTO " + ApplicantsEntry.TABLE_NAME + " (" +
                 ApplicantsEntry.COLUMN_FIRST_NAME + "," +
                 ApplicantsEntry.COLUMN_LAST_NAME + "," +
                 ApplicantsEntry.COLUMN_PHONE_NUMBER + "," +
@@ -89,13 +87,13 @@ public class ApplicantsDbHelper extends DbHelper {
 
     public List<String> updateApplicantAndGetPhoneNumber() {
 
-        String sqlStatement = "UPDATE " + tableName +
+        String sqlStatement = "UPDATE " + ApplicantsEntry.TABLE_NAME +
                 " SET " + ApplicantsEntry.COLUMN_PHONE_NUMBER + " = '003670/223-7459'" +
                 " WHERE " + ApplicantsEntry.COLUMN_FIRST_NAME + " = 'Jemima' AND " +
                 ApplicantsEntry.COLUMN_LAST_NAME + " = 'Foreman';" ;
 
-        String selectSqlStatement = "SELECT " + ApplicantsEntry.COLUMN_PHONE_NUMBER + " FROM " + tableName +
-                " WHERE " + ApplicantsEntry.COLUMN_FIRST_NAME + " = 'Jemima' AND " +
+        String selectSqlStatement = "SELECT " + ApplicantsEntry.COLUMN_PHONE_NUMBER + " FROM " +
+                ApplicantsEntry.TABLE_NAME + " WHERE " + ApplicantsEntry.COLUMN_FIRST_NAME + " = 'Jemima' AND " +
                 ApplicantsEntry.COLUMN_LAST_NAME + " = 'Foreman';" ;
 
         List<String> results = new ArrayList<>();
@@ -118,7 +116,7 @@ public class ApplicantsDbHelper extends DbHelper {
 
     public boolean deleteApplicantWithEmailEnding() {
 
-        String deleteStatement = "DELETE FROM " + tableName +
+        String deleteStatement = "DELETE FROM " + ApplicantsEntry.TABLE_NAME +
                 " WHERE " + ApplicantsEntry.COLUMN_EMAIL + " LIKE " + "'%@mauriseu.net';" ;
 
         openConnection();
