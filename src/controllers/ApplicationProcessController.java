@@ -44,6 +44,9 @@ public class ApplicationProcessController {
                 case "6":
                     updateApplicantAndShowHisPhoneNumber();
                     break;
+                case "7":
+                    deleteApplicantsWithEmailEnding();
+                    break;
                 case "0":
                     isAppRunning = false;
                     break;
@@ -89,5 +92,11 @@ public class ApplicationProcessController {
 
         List<String> results = applicantsDbHelper.updateApplicantAndGetPhoneNumber();
         applicationProcessView.displayResults(results);
+    }
+
+    private void deleteApplicantsWithEmailEnding() {
+
+        if (applicantsDbHelper.deleteApplicantWithEmailEnding())
+            applicationProcessView.displaySuccessfullyDeleted();
     }
 }

@@ -51,4 +51,9 @@ public class ApplicationProcessView {
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
     }
+
+    public void displaySuccessfullyDeleted() {
+        System.out.println("Successfully deleted!");
+        displayPressAnyKeyToContinueMessage();
+    }
 }

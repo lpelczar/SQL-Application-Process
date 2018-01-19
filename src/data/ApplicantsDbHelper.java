@@ -26,8 +26,8 @@ public class ApplicantsDbHelper extends DbHelper {
 
         String statement = "SELECT first_name || \" \" || last_name AS full_name, phone_number\n" +
                            "FROM " + tableName + " " + whereStatement;
-        List<String> results = new ArrayList<>();
 
+        List<String> results = new ArrayList<>();
         openConnection();
         try {
             ResultSet resultSet = query(statement);
@@ -47,8 +47,8 @@ public class ApplicantsDbHelper extends DbHelper {
         String sqlStatement = createAddingApplicantStatement(applicant);
         String selectSqlStatement = "SELECT * FROM " + tableName + " WHERE " +
                 ApplicantsEntry.COLUMN_APPLICATION_CODE + " = " + applicant.getApplicationCode() + ";";
-        List<String> results = new ArrayList<>();
 
+        List<String> results = new ArrayList<>();
         openConnection();
         try {
             update(sqlStatement);
@@ -90,11 +90,12 @@ public class ApplicantsDbHelper extends DbHelper {
                 " SET " + ApplicantsEntry.COLUMN_PHONE_NUMBER + " = '003670/223-7459'" +
                 " WHERE " + ApplicantsEntry.COLUMN_FIRST_NAME + " = 'Jemima' AND " +
                 ApplicantsEntry.COLUMN_LAST_NAME + " = 'Foreman';" ;
+
         String selectSqlStatement = "SELECT " + ApplicantsEntry.COLUMN_PHONE_NUMBER + " FROM " + tableName +
                 " WHERE " + ApplicantsEntry.COLUMN_FIRST_NAME + " = 'Jemima' AND " +
                 ApplicantsEntry.COLUMN_LAST_NAME + " = 'Foreman';" ;
-        List<String> results = new ArrayList<>();
 
+        List<String> results = new ArrayList<>();
         openConnection();
         try {
             update(sqlStatement);
@@ -108,6 +109,23 @@ public class ApplicantsDbHelper extends DbHelper {
             closeConnection();
         }
         return results;
+    }
+
+    public boolean deleteApplicantWithEmailEnding() {
+
+        String deleteStatement = "DELETE FROM " + tableName +
+                " WHERE " + ApplicantsEntry.COLUMN_EMAIL + " LIKE " + "'%@mauriseu.net';" ;
+
+        openConnection();
+        try {
+            update(deleteStatement);
+            return true;
+        } catch (SQLException e) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        } finally {
+            closeConnection();
+        }
+        return false;
     }
 
 
