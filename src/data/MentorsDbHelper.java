@@ -44,10 +44,4 @@ public class MentorsDbHelper extends DbHelper {
         }
         return results;
     }
-
-    private ResultSet readData(String sqlStatement) throws SQLException {
-
-        Statement statement = getConnection().createStatement();
-        return statement.executeQuery(sqlStatement);
-    }
 }

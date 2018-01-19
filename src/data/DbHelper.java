@@ -36,15 +36,9 @@ class DbHelper {
 
     }
 
-    Connection getConnection() {
-        return connection;
-    }
+    ResultSet readData(String sqlStatement) throws SQLException {
 
-    ResultSet getResultSet() {
-        return resultSet;
-    }
-
-    Statement getStatement() {
-        return statement;
+        statement = connection.createStatement();
+        return statement.executeQuery(sqlStatement);
     }
 }
