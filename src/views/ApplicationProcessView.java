@@ -23,6 +23,9 @@ public class ApplicationProcessView {
                 " 9. List all applicants\n" +
                 " 10. Add mentor\n" +
                 " 11. Update mentor\n" +
+                " 12. Add applicant\n" +
+                " 13. Update applicant\n" +
+                " 14. Advanced search\n" +
                 " 0. Exit");
     }
 
