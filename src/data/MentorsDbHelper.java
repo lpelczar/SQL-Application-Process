@@ -1,87 +1,35 @@
 package data;
 
-import models.Mentor;
+
+import data.MentorsContract.MentorsEntry;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-
-import static data.MentorsContract.*;
+import java.util.*;
 
 public class MentorsDbHelper extends DbHelper {
 
-    public void create() {
-        Connection connection = getConnection();
-        Statement statement = null;
+    public List<String> getFirstNameAndLastNameColumn() {
 
+        String statement = "SELECT first_name, last_name FROM mentors;";
+        List<String> results = new ArrayList<>();
+
+        openConnection();
         try {
-            statement = connection.createStatement();
-            String sql = "CREATE TABLE " + MentorsEntry.TABLE_NAME + " (" +
-                    MentorsEntry.COLUMN_FIRST_NAME + " TEXT NOT NULL," +
-                    MentorsEntry.COLUMN_LAST_NAME + " TEXT NOT NULL," +
-                    MentorsEntry.COLUMN_NICK_NAME + " TEXT NOT NULL," +
-                    MentorsEntry.COLUMN_PHONE_NUMBER + " TEXT NOT NULL," +
-                    MentorsEntry.COLUMN_EMAIL + " TEXT NOT NULL," +
-                    MentorsEntry.COLUMN_CITY + " TEXT NOT NULL," +
-                    MentorsEntry.COLUMN_FAVOURITE_NUMBER + " INTEGER" +
-                    "); ";
-            statement.executeUpdate(sql);
-            statement.close();
-            connection.close();
-        } catch ( Exception e ) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
+        ResultSet resultSet = readData(statement);
+        while (resultSet.next())
+            results.add(resultSet.getString(MentorsEntry.COLUMN_FIRST_NAME) + " " +
+                        resultSet.getString(MentorsEntry.COLUMN_LAST_NAME));
+        } catch (SQLException e) {
+            System.out.println("Error reading first and last name column from mentor");
+        } finally {
+            closeConnection();
         }
-        System.out.println("Table created successfully");
+        return results;
     }
 
-    public void insert(String sqlStatement) {
+    private ResultSet readData(String sqlStatement) throws SQLException {
 
-        Connection connection = getConnection();
-        Statement statement = null;
-
-        try {
-            connection.setAutoCommit(false);
-            statement = connection.createStatement();
-            statement.executeUpdate(sqlStatement);
-            statement.close();
-            connection.commit();
-            connection.close();
-        } catch ( Exception e ) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
-        }
-        System.out.println("Records created successfully");
-    }
-
-    public List<Mentor> select(String sqlStatement) {
-
-        List<Mentor> mentors = new ArrayList<>();
-        Connection connection = getConnection();
-        Statement statement;
-
-        try {
-            connection.setAutoCommit(false);
-            statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sqlStatement);
-
-            while (resultSet.next()) {
-                mentors.add(new Mentor(
-                        resultSet.getString(MentorsEntry.COLUMN_FIRST_NAME),
-                        resultSet.getString(MentorsEntry.COLUMN_LAST_NAME),
-                        resultSet.getString(MentorsEntry.COLUMN_NICK_NAME),
-                        resultSet.getString(MentorsEntry.COLUMN_PHONE_NUMBER),
-                        resultSet.getString(MentorsEntry.COLUMN_EMAIL),
-                        resultSet.getString(MentorsEntry.COLUMN_CITY),
-                        resultSet.getInt(MentorsEntry.COLUMN_FAVOURITE_NUMBER)));
-            }
-            resultSet.close();
-            statement.close();
-            connection.close();
-        } catch ( Exception e ) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
-        }
-        return mentors;
+        Statement statement = getConnection().createStatement();
+        return statement.executeQuery(sqlStatement);
     }
 }
