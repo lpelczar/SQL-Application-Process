@@ -27,6 +27,24 @@ public class MentorsDbHelper extends DbHelper {
         return results;
     }
 
+    public List<String> getNickNamesOfMentorsAtMiskolc() {
+
+        String statement = "SELECT nick_name FROM mentors WHERE city = \"Miskolc\";";
+        List<String> results = new ArrayList<>();
+
+        openConnection();
+        try {
+            ResultSet resultSet = readData(statement);
+            while (resultSet.next())
+                results.add(resultSet.getString(MentorsEntry.COLUMN_NICK_NAME));
+        } catch (SQLException e) {
+            System.out.println("Error reading nick name column from mentor");
+        } finally {
+            closeConnection();
+        }
+        return results;
+    }
+
     private ResultSet readData(String sqlStatement) throws SQLException {
 
         Statement statement = getConnection().createStatement();

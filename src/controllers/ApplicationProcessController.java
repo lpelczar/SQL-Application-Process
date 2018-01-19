@@ -29,6 +29,7 @@ public class ApplicationProcessController {
                     showFirstAndLastNameColumnsFromMentors();
                     break;
                 case "2":
+                    showNickNamesOfMentorsAtMiskolc();
                     break;
                 case "0":
                     isAppRunning = false;
@@ -42,6 +43,12 @@ public class ApplicationProcessController {
     private void showFirstAndLastNameColumnsFromMentors() {
 
         List<String> results = mentorsDbHelper.getFirstNameAndLastNameColumn();
+        applicationProcessView.displayResults(results);
+    }
+
+    private void showNickNamesOfMentorsAtMiskolc() {
+
+        List<String> results = mentorsDbHelper.getNickNamesOfMentorsAtMiskolc();
         applicationProcessView.displayResults(results);
     }
 }
