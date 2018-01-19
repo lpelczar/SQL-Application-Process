@@ -92,4 +92,9 @@ public class ApplicationProcessView {
         displayPressAnyKeyToContinueMessage();
     }
 
+    public void displaySuccessfullyUpdated() {
+        System.out.println("Successfully updated!");
+        displayPressAnyKeyToContinueMessage();
+    }
+
 }

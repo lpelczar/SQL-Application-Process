@@ -23,7 +23,6 @@ public class ApplicationProcessController {
 
     public void start() {
         boolean isAppRunning = true;
-
         while (isAppRunning) {
             applicationProcessView.displayMenu();
             String userInput = applicationProcessView.getUserInput();
@@ -57,6 +56,9 @@ public class ApplicationProcessController {
                     break;
                 case "10":
                     addMentor();
+                    break;
+                case "11":
+                    updateMentor();
                     break;
                 case "12":
                     addApplicant();
@@ -124,13 +126,13 @@ public class ApplicationProcessController {
 
     private void addMentor() {
 
-        String firstName = getStringUserInput("Enter first name:");
-        String lastName = getStringUserInput("Enter last name:");
-        String nickName = getStringUserInput("Enter nick name:");
-        String phoneNumber = getStringUserInput("Enter phone number:");
-        String email = getStringUserInput("Enter email:");
-        String city = getStringUserInput("Enter city:");
-        int favouriteNumber = getIntUserInput("Enter favourite number:");
+        String firstName = getStringUserInput("Enter first name: ");
+        String lastName = getStringUserInput("Enter last name: ");
+        String nickName = getStringUserInput("Enter nick name: ");
+        String phoneNumber = getStringUserInput("Enter phone number: ");
+        String email = getStringUserInput("Enter email: ");
+        String city = getStringUserInput("Enter city: ");
+        int favouriteNumber = getIntUserInput("Enter favourite number: ");
         boolean isAdded = mentorsDbHelper.addMentor(new Mentor(firstName, lastName, nickName,
                 phoneNumber, email, city, favouriteNumber));
         if (isAdded) {
@@ -146,7 +148,7 @@ public class ApplicationProcessController {
         while(!isCorrectInput) {
             applicationProcessView.displayMessage(message);
             input = applicationProcessView.getStringInput();
-            if (input.length() > 1) {
+            if (input.length() > 1 || input.equals("0")) {
                 isCorrectInput = true;
             }
         }
@@ -170,15 +172,34 @@ public class ApplicationProcessController {
 
     private void addApplicant() {
 
-        String firstName = getStringUserInput("Enter first name:");
-        String lastName = getStringUserInput("Enter last name:");
-        String phoneNumber = getStringUserInput("Enter phone number:");
-        String email = getStringUserInput("Enter email:");
-        int applicationCode = getIntUserInput("Enter application code:");
+        String firstName = getStringUserInput("Enter first name: ");
+        String lastName = getStringUserInput("Enter last name: ");
+        String phoneNumber = getStringUserInput("Enter phone number: ");
+        String email = getStringUserInput("Enter email: ");
+        int applicationCode = getIntUserInput("Enter application code: ");
         boolean isAdded = applicantsDbHelper.addApplicant(new Applicant(firstName, lastName,
                 phoneNumber, email, applicationCode));
         if (isAdded) {
             applicationProcessView.displaySuccessfullyAdded();
+        }
+    }
+
+    private void updateMentor() {
+
+        int id = getIntUserInput("Enter mentor ID: ");
+        if (mentorsDbHelper.getMentorById(id) != null) {
+            String firstName = getStringUserInput("Enter first name (or enter 0 to go to next field): ");
+            String lastName = getStringUserInput("Enter last name (or enter 0 to go to next field): ");
+            String nickName = getStringUserInput("Enter nick name (or enter 0 to go to next field): ");
+            String phoneNumber = getStringUserInput("Enter phone number (or enter 0 to go to next field): ");
+            String email = getStringUserInput("Enter email (or enter 0 to go to next field): ");
+            String city = getStringUserInput("Enter city (or enter 0 to go to next field): ");
+            int favouriteNumber = getIntUserInput("Enter favourite number: ");
+            boolean isUpdated = mentorsDbHelper.updateMentorById(new Mentor(id, firstName, lastName, nickName,
+                                                                 phoneNumber, email, city, favouriteNumber));
+            if (isUpdated) {
+                applicationProcessView.displaySuccessfullyUpdated();
+            }
         }
     }
 }

@@ -69,7 +69,7 @@ public class MentorsDbHelper extends DbHelper {
                         resultSet.getString(MentorsEntry.COLUMN_CITY),
                         resultSet.getInt(MentorsEntry.COLUMN_FAVOURITE_NUMBER)));
         } catch (SQLException e) {
-            System.out.println("Error reading nick name column from mentor");
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
         } finally {
             closeConnection();
         }
@@ -110,5 +110,68 @@ public class MentorsDbHelper extends DbHelper {
                 "'" + mentor.getEmail() + "'," +
                 "'" + mentor.getCity() + "'," +
                 mentor.getFavouriteNumber() + ");" ;
+    }
+
+    public Mentor getMentorById(int id) {
+
+        Mentor mentor = null;
+        String selectStatement = "SELECT * FROM " + MentorsEntry.TABLE_NAME +
+                " WHERE " + MentorsEntry.COLUMN_ID + " = " + id + ";" ;
+
+        openConnection();
+        try {
+            ResultSet resultSet = query(selectStatement);
+            while (resultSet.next())
+                mentor = new Mentor(
+                        resultSet.getInt(MentorsEntry.COLUMN_ID),
+                        resultSet.getString(MentorsEntry.COLUMN_FIRST_NAME),
+                        resultSet.getString(MentorsEntry.COLUMN_LAST_NAME),
+                        resultSet.getString(MentorsEntry.COLUMN_NICK_NAME),
+                        resultSet.getString(MentorsEntry.COLUMN_PHONE_NUMBER),
+                        resultSet.getString(MentorsEntry.COLUMN_EMAIL),
+                        resultSet.getString(MentorsEntry.COLUMN_CITY),
+                        resultSet.getInt(MentorsEntry.COLUMN_FAVOURITE_NUMBER));
+        } catch (SQLException e) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        } finally {
+            closeConnection();
+        }
+        return mentor;
+    }
+
+    public boolean updateMentorById(Mentor mentor) {
+
+        String updateStatement = createUpdateStatement(mentor);
+
+        openConnection();
+        try {
+            update(updateStatement);
+            return true;
+        } catch (SQLException e) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        } finally {
+            closeConnection();
+        }
+        return false;
+    }
+
+    private String createUpdateStatement(Mentor mentor) {
+
+        String updateStatement = "UPDATE " + MentorsEntry.TABLE_NAME + " SET ";
+        if (!mentor.getFirstName().equals("0"))
+            updateStatement += MentorsEntry.COLUMN_FIRST_NAME + " = '" + mentor.getFirstName() + "',";
+        if (!mentor.getLastName().equals("0"))
+            updateStatement += MentorsEntry.COLUMN_LAST_NAME + " = '" + mentor.getLastName() + "',";
+        if (!mentor.getNickName().equals("0"))
+            updateStatement += MentorsEntry.COLUMN_NICK_NAME + " = '" + mentor.getNickName() + "',";
+        if (!mentor.getPhoneNumber().equals("0"))
+            updateStatement += MentorsEntry.COLUMN_PHONE_NUMBER + " = '" + mentor.getPhoneNumber() + "',";
+        if (!mentor.getEmail().equals("0"))
+            updateStatement += MentorsEntry.COLUMN_EMAIL + " = '" + mentor.getEmail() + "',";
+        if (!mentor.getCity().equals("0"))
+            updateStatement += MentorsEntry.COLUMN_CITY + " = '" + mentor.getCity() + "',";
+        updateStatement += MentorsEntry.COLUMN_FAVOURITE_NUMBER + " = " + mentor.getFavouriteNumber() +
+        " WHERE " + MentorsEntry.COLUMN_ID + " = " + mentor.getId() + ";";
+        return updateStatement;
     }
 }
