@@ -31,6 +31,9 @@ public class ApplicationProcessController {
                 case "2":
                     showNickNamesOfMentorsAtMiskolc();
                     break;
+                case "3":
+                    showFullNameAndPhoneNumberOfApplicantsWithNameCarol();
+                    break;
                 case "0":
                     isAppRunning = false;
                     break;
@@ -49,6 +52,12 @@ public class ApplicationProcessController {
     private void showNickNamesOfMentorsAtMiskolc() {
 
         List<String> results = mentorsDbHelper.getNickNamesOfMentorsAtMiskolc();
+        applicationProcessView.displayResults(results);
+    }
+
+    private void showFullNameAndPhoneNumberOfApplicantsWithNameCarol() {
+
+        List<String> results = applicantsDbHelper.getFullNameAndPhoneNumberOfWithNameCarol();
         applicationProcessView.displayResults(results);
     }
 }
