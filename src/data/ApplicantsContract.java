@@ -9,5 +9,6 @@ public class ApplicantsContract {
         public static final String COLUMN_PHONE_NUMBER = "phone_number";
         public static final String COLUMN_EMAIL = "email";
         public static final String COLUMN_APPLICATION_CODE = "application_code";
+        public static final String COLUMN_FULL_NAME = "full_name";
     }
 }

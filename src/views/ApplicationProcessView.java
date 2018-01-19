@@ -12,6 +12,7 @@ public class ApplicationProcessView {
                 " 1. Get first_name, last_name columns from mentors table\n" +
                 " 2. Get the nick_name-s of all mentors working at Miskolc\n" +
                 " 3. Show full name and phone number of all applicants with name Carol\n" +
+                " 4. Show full name and phone number of all applicants with name Carol\n" +
                 " 0. Exit");
     }
 
