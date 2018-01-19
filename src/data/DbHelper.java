@@ -23,11 +23,11 @@ class DbHelper {
     void closeConnection() {
 
         try {
-            if (connection != null && !connection.isClosed())
+            if (connection != null && connection.isClosed())
                 connection.close();
-            if (statement != null && !statement.isClosed())
+            if (statement != null && statement.isClosed())
                 statement.close();
-            if (resultSet != null && !resultSet.isClosed())
+            if (resultSet != null && resultSet.isClosed())
                 resultSet.close();
         } catch (SQLException e) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
