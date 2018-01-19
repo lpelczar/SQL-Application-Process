@@ -21,6 +21,8 @@ public class ApplicationProcessView {
                 " 7. Delete all applicants with email ending %@mauriseu.net\n" +
                 " 8. List all mentors\n" +
                 " 9. List all applicants\n" +
+                " 10. Add mentor\n" +
+                " 11. Update mentor\n" +
                 " 0. Exit");
     }
 
@@ -34,7 +36,7 @@ public class ApplicationProcessView {
         return getStringInput();
     }
 
-    private String getStringInput() {
+    public String getStringInput() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
@@ -77,4 +79,14 @@ public class ApplicationProcessView {
         }
         displayPressAnyKeyToContinueMessage();
     }
+
+    public void displayMessage(String message) {
+        System.out.print(message);
+    }
+
+    public void displaySuccessfullyAdded() {
+        System.out.println("Successfully added!");
+        displayPressAnyKeyToContinueMessage();
+    }
+
 }

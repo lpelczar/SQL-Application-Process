@@ -3,6 +3,8 @@ package controllers;
 import data.ApplicantsDbHelper;
 import data.MentorsDbHelper;
 import models.Applicant;
+import models.Mentor;
+import services.IntegerChecker;
 import views.ApplicationProcessView;
 
 import java.util.List;
@@ -52,6 +54,9 @@ public class ApplicationProcessController {
                     break;
                 case "9":
                     listAllApplicants();
+                    break;
+                case "10":
+                    addMentor();
                     break;
                 case "0":
                     isAppRunning = false;
@@ -113,4 +118,52 @@ public class ApplicationProcessController {
     private void listAllApplicants() {
         applicationProcessView.displayApplicants(applicantsDbHelper.getAllApplicants());
     }
+
+    private void addMentor() {
+
+        String firstName = getStringUserInput("Enter first name:");
+        String lastName = getStringUserInput("Enter last name:");
+        String nickName = getStringUserInput("Enter nick name:");
+        String phoneNumber = getStringUserInput("Enter phone number:");
+        String email = getStringUserInput("Enter email:");
+        String city = getStringUserInput("Enter city:");
+        int favouriteNumber = getIntUserInput("Enter favourite number:");
+        boolean isAdded = mentorsDbHelper.addMentor(new Mentor(firstName, lastName, nickName,
+                phoneNumber, email, city, favouriteNumber));
+        if (isAdded) {
+            applicationProcessView.displaySuccessfullyAdded();
+        }
+    }
+
+    private String getStringUserInput(String message) {
+
+        String input = null;
+        boolean isCorrectInput = false;
+
+        while(!isCorrectInput) {
+            applicationProcessView.displayMessage(message);
+            input = applicationProcessView.getStringInput();
+            if (input.length() > 1) {
+                isCorrectInput = true;
+            }
+        }
+        return input;
+    }
+
+    private int getIntUserInput(String message) {
+
+        String input = null;
+        boolean isCorrectInput = false;
+
+        while(!isCorrectInput) {
+            System.out.print(message);
+            input = applicationProcessView.getStringInput();
+            if (input.length() > 0 && IntegerChecker.isInteger(input)) {
+                isCorrectInput = true;
+            }
+        }
+        return Integer.parseInt(input);
+    }
 }
+
+

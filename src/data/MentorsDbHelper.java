@@ -75,4 +75,40 @@ public class MentorsDbHelper extends DbHelper {
         }
         return mentors;
     }
+
+    public boolean addMentor(Mentor mentor) {
+
+        String insertStatement = createInsertApplicantStatement(mentor);
+
+        openConnection();
+        try {
+            update(insertStatement);
+            return true;
+        } catch (SQLException e) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        } finally {
+            closeConnection();
+        }
+        return false;
+    }
+
+    private String createInsertApplicantStatement(Mentor mentor) {
+
+        return "INSERT INTO " + MentorsEntry.TABLE_NAME + " (" +
+                MentorsEntry.COLUMN_FIRST_NAME + "," +
+                MentorsEntry.COLUMN_LAST_NAME + "," +
+                MentorsEntry.COLUMN_NICK_NAME + "," +
+                MentorsEntry.COLUMN_PHONE_NUMBER + "," +
+                MentorsEntry.COLUMN_EMAIL + "," +
+                MentorsEntry.COLUMN_CITY + "," +
+                MentorsEntry.COLUMN_FAVOURITE_NUMBER + ")" +
+                " VALUES (" +
+                "'" + mentor.getFirstName() + "'," +
+                "'" + mentor.getLastName() + "'," +
+                "'" + mentor.getNickName() + "'," +
+                "'" + mentor.getPhoneNumber() + "'," +
+                "'" + mentor.getEmail() + "'," +
+                "'" + mentor.getCity() + "'," +
+                mentor.getFavouriteNumber() + ");" ;
+    }
 }

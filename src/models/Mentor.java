@@ -23,6 +23,17 @@ public class Mentor {
         this.favouriteNumber = favouriteNumber;
     }
 
+    public Mentor(String firstName, String lastName, String nickName, String phoneNumber,
+                  String email, String city, int favouriteNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.nickName = nickName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.city = city;
+        this.favouriteNumber = favouriteNumber;
+    }
+
     public int getId() {
         return id;
     }
