@@ -76,8 +76,9 @@ public class ApplicationProcessController {
 
     private void addApplicantAndShowHisData() {
 
-        List<String> results = applicantsDbHelper.addApplicant("Markus", "Schaffarzyk", "003620/725-2666",
+        Applicant applicant = new Applicant("Markus", "Schaffarzyk", "003620/725-2666",
                 "djnovus@groovecoverage.com", 54823);
+        List<String> results = applicantsDbHelper.addApplicant(applicant);
         applicationProcessView.displayResults(results);
     }
 }

@@ -18,20 +18,19 @@ class DbHelper {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             System.exit(0);
         }
-        System.out.println("Opened database successfully");
     }
 
     void closeConnection() {
 
         try {
-            if (connection != null)
+            if (connection != null && !connection.isClosed())
                 connection.close();
-            if (statement != null)
+            if (statement != null && !statement.isClosed())
                 statement.close();
-            if (resultSet != null)
+            if (resultSet != null && !resultSet.isClosed())
                 resultSet.close();
         } catch (SQLException e) {
-            System.out.println("Problem closing connections");
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
         }
 
     }
@@ -40,5 +39,13 @@ class DbHelper {
 
         statement = connection.createStatement();
         return statement.executeQuery(sqlStatement);
+    }
+
+    void insert(String sqlStatement) throws SQLException {
+
+        connection.setAutoCommit(false);
+        statement = connection.createStatement();
+        statement.executeUpdate(sqlStatement);
+        connection.commit();
     }
 }

@@ -1,6 +1,7 @@
 package data;
 
 import data.ApplicantsContract.ApplicantsEntry;
+import models.Applicant;
 
 import java.sql.*;
 import java.util.*;
@@ -41,30 +42,36 @@ public class ApplicantsDbHelper extends DbHelper {
         return results;
     }
 
-    public List<String> addApplicant(String firstName, String lastName, String phoneNumber, String email, int applicationCode) {
+    public List<String> addApplicant(Applicant applicant) {
 
-        String statement = "INSERT INTO " + tableName + " (" +
-                "first_name," + "last_name," + "phone_number," + "email," + "application_code)" +
-                "VALUES (" + firstName + "," + lastName + "," + phoneNumber + "," + email + "," + applicationCode +
-                ")" + "SELECT * FROM applicants WHERE application_code =" + applicationCode + ";";
+        String sqlStatement = createAddingApplicantStatement(applicant);
         List<String> results = new ArrayList<>();
 
         openConnection();
         try {
-            ResultSet resultSet = query(statement);
-            while (resultSet.next())
-                results.add(
-                        resultSet.getString(ApplicantsEntry.COLUMN_FIRST_NAME) + " " +
-                        resultSet.getString(ApplicantsEntry.COLUMN_LAST_NAME) + " " +
-                        resultSet.getString(ApplicantsEntry.COLUMN_PHONE_NUMBER) + " " +
-                        resultSet.getString(ApplicantsEntry.COLUMN_EMAIL) + " " +
-                        resultSet.getString(ApplicantsEntry.COLUMN_APPLICATION_CODE));
+            insert(sqlStatement);
         } catch (SQLException e) {
-            System.out.println("Error adding applicant");
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
         } finally {
             closeConnection();
         }
         return results;
+    }
+
+    private String createAddingApplicantStatement(Applicant applicant) {
+
+        return "INSERT INTO " + tableName + " (" +
+                ApplicantsEntry.COLUMN_FIRST_NAME + "," +
+                ApplicantsEntry.COLUMN_LAST_NAME + "," +
+                ApplicantsEntry.COLUMN_PHONE_NUMBER + "," +
+                ApplicantsEntry.COLUMN_EMAIL + "," +
+                ApplicantsEntry.COLUMN_APPLICATION_CODE + ")" +
+                " VALUES (" +
+                "'" + applicant.getFirstName() + "'," +
+                "'" + applicant.getLastName() + "'," +
+                "'" + applicant.getPhoneNumber() + "'," +
+                "'" + applicant.getEmail() + "'," +
+                applicant.getApplicationCode() + ");" ;
     }
 
 
