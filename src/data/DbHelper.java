@@ -37,12 +37,14 @@ class DbHelper {
 
     ResultSet query(String sqlStatement) throws SQLException {
 
+        openConnection();
         statement = connection.createStatement();
         return statement.executeQuery(sqlStatement);
     }
 
     void update(String sqlStatement) throws SQLException {
 
+        openConnection();
         connection.setAutoCommit(false);
         statement = connection.createStatement();
         statement.executeUpdate(sqlStatement);

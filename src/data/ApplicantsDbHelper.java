@@ -27,7 +27,6 @@ public class ApplicantsDbHelper extends DbHelper {
                            "FROM " + ApplicantsEntry.TABLE_NAME + " " + whereStatement;
 
         List<String> results = new ArrayList<>();
-        openConnection();
         try {
             ResultSet resultSet = query(statement);
             while (resultSet.next())
@@ -48,11 +47,9 @@ public class ApplicantsDbHelper extends DbHelper {
                 ApplicantsEntry.COLUMN_APPLICATION_CODE + " = " + applicant.getApplicationCode() + ";";
 
         List<String> results = new ArrayList<>();
-        openConnection();
         try {
             update(sqlStatement);
             closeConnection();
-            openConnection();
             ResultSet resultSet = query(selectSqlStatement);
             while (resultSet.next()) {
                 results.add(resultSet.getString(ApplicantsEntry.COLUMN_ID) + " " +
@@ -98,11 +95,9 @@ public class ApplicantsDbHelper extends DbHelper {
                 ApplicantsEntry.COLUMN_LAST_NAME + " = 'Foreman';" ;
 
         List<String> results = new ArrayList<>();
-        openConnection();
         try {
             update(sqlStatement);
             closeConnection();
-            openConnection();
             ResultSet resultSet = query(selectSqlStatement);
             while (resultSet.next()) {
                 results.add(resultSet.getString(ApplicantsEntry.COLUMN_PHONE_NUMBER));
@@ -120,7 +115,6 @@ public class ApplicantsDbHelper extends DbHelper {
         String deleteStatement = "DELETE FROM " + ApplicantsEntry.TABLE_NAME +
                 " WHERE " + ApplicantsEntry.COLUMN_EMAIL + " LIKE " + "'%@mauriseu.net';" ;
 
-        openConnection();
         try {
             update(deleteStatement);
             return true;
@@ -137,7 +131,6 @@ public class ApplicantsDbHelper extends DbHelper {
         String statement = "SELECT * FROM " + ApplicantsEntry.TABLE_NAME + ";" ;
 
         List<Entry> applicants = new ArrayList<>();
-        openConnection();
         try {
             ResultSet resultSet = query(statement);
             while (resultSet.next())
@@ -159,7 +152,6 @@ public class ApplicantsDbHelper extends DbHelper {
     public boolean addApplicant(Applicant applicant) {
         String insertStatement = createAddingApplicantStatement(applicant);
 
-        openConnection();
         try {
             update(insertStatement);
             return true;
@@ -177,7 +169,6 @@ public class ApplicantsDbHelper extends DbHelper {
         String selectStatement = "SELECT * FROM " + ApplicantsEntry.TABLE_NAME +
                 " WHERE " + ApplicantsEntry.COLUMN_ID + " = " + id + ";" ;
 
-        openConnection();
         try {
             ResultSet resultSet = query(selectStatement);
             while (resultSet.next())
@@ -200,7 +191,6 @@ public class ApplicantsDbHelper extends DbHelper {
 
         String updateStatement = createUpdateStatement(applicant);
 
-        openConnection();
         try {
             update(updateStatement);
             return true;
@@ -233,7 +223,6 @@ public class ApplicantsDbHelper extends DbHelper {
         String selectSqlStatement = createSelectApplicantsByPhraseStatement(searchPhrase);
 
         List<Applicant> applicants = new ArrayList<>();
-        openConnection();
         try {
             ResultSet resultSet = query(selectSqlStatement);
             while (resultSet.next())

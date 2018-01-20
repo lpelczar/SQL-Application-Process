@@ -18,7 +18,6 @@ public class MentorsDbHelper extends DbHelper {
                            " FROM " + MentorsEntry.TABLE_NAME + ";";
         List<String> results = new ArrayList<>();
 
-        openConnection();
         try {
         ResultSet resultSet = query(statement);
         while (resultSet.next())
@@ -38,7 +37,6 @@ public class MentorsDbHelper extends DbHelper {
                            " FROM " + MentorsEntry.TABLE_NAME +" WHERE city = \"Miskolc\";";
         List<String> results = new ArrayList<>();
 
-        openConnection();
         try {
             ResultSet resultSet = query(statement);
             while (resultSet.next())
@@ -56,7 +54,6 @@ public class MentorsDbHelper extends DbHelper {
         String statement = "SELECT * FROM " + MentorsEntry.TABLE_NAME + ";" ;
 
         List<Entry> mentors = new ArrayList<>();
-        openConnection();
         try {
             ResultSet resultSet = query(statement);
             while (resultSet.next())
@@ -81,7 +78,6 @@ public class MentorsDbHelper extends DbHelper {
 
         String insertStatement = createInsertApplicantStatement(mentor);
 
-        openConnection();
         try {
             update(insertStatement);
             return true;
@@ -119,7 +115,6 @@ public class MentorsDbHelper extends DbHelper {
         String selectStatement = "SELECT * FROM " + MentorsEntry.TABLE_NAME +
                 " WHERE " + MentorsEntry.COLUMN_ID + " = " + id + ";" ;
 
-        openConnection();
         try {
             ResultSet resultSet = query(selectStatement);
             while (resultSet.next())
@@ -144,7 +139,6 @@ public class MentorsDbHelper extends DbHelper {
 
         String updateStatement = createUpdateStatement(mentor);
 
-        openConnection();
         try {
             update(updateStatement);
             return true;
@@ -181,7 +175,6 @@ public class MentorsDbHelper extends DbHelper {
         String selectSqlStatement = createSelectMentorsByPhraseStatement(searchPhrase);
 
         List<Mentor> mentors = new ArrayList<>();
-        openConnection();
         try {
             ResultSet resultSet = query(selectSqlStatement);
             while (resultSet.next())
