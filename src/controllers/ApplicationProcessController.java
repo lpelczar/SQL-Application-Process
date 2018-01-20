@@ -152,7 +152,7 @@ public class ApplicationProcessController {
         while(!isCorrectInput) {
             applicationProcessView.displayMessage(message);
             input = applicationProcessView.getStringInput();
-            if (input.length() > 0) {
+            if (input.trim().length() > 0) {
                 isCorrectInput = true;
             }
         }
@@ -167,7 +167,7 @@ public class ApplicationProcessController {
         while(!isCorrectInput) {
             System.out.print(message);
             input = applicationProcessView.getStringInput();
-            if (input.length() > 0 && IntegerChecker.isInteger(input)) {
+            if (input.trim().length() > 0 && IntegerChecker.isInteger(input)) {
                 isCorrectInput = true;
             }
         }
