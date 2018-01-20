@@ -52,7 +52,7 @@ public class Applicant implements Entry {
 
     @Override
     public String toString() {
-        return String.format("ID: %d %s %s %s %s %d", id, firstName, lastName,
+        return String.format(getClass().getSimpleName() + ": ID: %d %s %s %s %s %d", id, firstName, lastName,
                 phoneNumber, email, applicationCode);
     }
 }
