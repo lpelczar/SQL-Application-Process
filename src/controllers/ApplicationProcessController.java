@@ -121,11 +121,11 @@ public class ApplicationProcessController {
     }
 
     private void listAllMentors() {
-        applicationProcessView.displayMentors(mentorsDbHelper.getAllMentors());
+        applicationProcessView.displayEntries(mentorsDbHelper.getAllMentors());
     }
 
     private void listAllApplicants() {
-        applicationProcessView.displayApplicants(applicantsDbHelper.getAllApplicants());
+        applicationProcessView.displayEntries(applicantsDbHelper.getAllApplicants());
     }
 
     private void addMentor() {

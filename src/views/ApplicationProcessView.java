@@ -1,8 +1,6 @@
 package views;
 
-import models.Applicant;
 import models.Entry;
-import models.Mentor;
 
 import java.util.*;
 
@@ -64,23 +62,7 @@ public class ApplicationProcessView {
     }
 
     public void displaySuccessfullyDeleted() {
-        System.out.println("Successfully deleted!");
-        displayPressAnyKeyToContinueMessage();
-    }
-
-    public void displayMentors(List<Mentor> mentors) {
-        System.out.println("\nAll mentors:");
-        for (Mentor m : mentors) {
-            System.out.println(m);
-        }
-        displayPressAnyKeyToContinueMessage();
-    }
-
-    public void displayApplicants(List<Applicant> applicants) {
-        System.out.println("\nAll applicants:");
-        for (Applicant a : applicants) {
-            System.out.println(a);
-        }
+        System.out.println("Entry successfully deleted!");
         displayPressAnyKeyToContinueMessage();
     }
 

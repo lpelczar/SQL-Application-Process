@@ -2,6 +2,7 @@ package data;
 
 import data.ApplicantsContract.ApplicantsEntry;
 import models.Applicant;
+import models.Entry;
 
 import java.sql.*;
 import java.util.*;
@@ -131,11 +132,11 @@ public class ApplicantsDbHelper extends DbHelper {
         return false;
     }
 
-    public List<Applicant> getAllApplicants() {
+    public List<Entry> getAllApplicants() {
 
         String statement = "SELECT * FROM " + ApplicantsEntry.TABLE_NAME + ";" ;
 
-        List<Applicant> applicants = new ArrayList<>();
+        List<Entry> applicants = new ArrayList<>();
         openConnection();
         try {
             ResultSet resultSet = query(statement);

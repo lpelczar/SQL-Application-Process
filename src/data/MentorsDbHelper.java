@@ -2,6 +2,7 @@ package data;
 
 
 import data.MentorsContract.MentorsEntry;
+import models.Entry;
 import models.Mentor;
 
 import java.sql.*;
@@ -50,11 +51,11 @@ public class MentorsDbHelper extends DbHelper {
         return results;
     }
 
-    public List<Mentor> getAllMentors() {
+    public List<Entry> getAllMentors() {
 
         String statement = "SELECT * FROM " + MentorsEntry.TABLE_NAME + ";" ;
 
-        List<Mentor> mentors = new ArrayList<>();
+        List<Entry> mentors = new ArrayList<>();
         openConnection();
         try {
             ResultSet resultSet = query(statement);
