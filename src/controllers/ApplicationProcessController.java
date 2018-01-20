@@ -152,7 +152,7 @@ public class ApplicationProcessController {
         while(!isCorrectInput) {
             applicationProcessView.displayMessage(message);
             input = applicationProcessView.getStringInput();
-            if (input.length() > 1 || input.equals("0")) {
+            if (input.length() > 0) {
                 isCorrectInput = true;
             }
         }
