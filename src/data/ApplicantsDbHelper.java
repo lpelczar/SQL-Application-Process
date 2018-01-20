@@ -96,24 +96,7 @@ public class ApplicantsDbHelper extends DbHelper {
     public List<Applicant> getAllApplicants() {
 
         String statement = applicantsStatementCreator.selectAllApplicantsStatement();
-
-        List<Applicant> applicants = new ArrayList<>();
-        try {
-            ResultSet resultSet = query(statement);
-            while (resultSet.next())
-                applicants.add(new Applicant(
-                        resultSet.getInt(ApplicantsEntry.COLUMN_ID),
-                        resultSet.getString(ApplicantsEntry.COLUMN_FIRST_NAME),
-                        resultSet.getString(ApplicantsEntry.COLUMN_LAST_NAME),
-                        resultSet.getString(ApplicantsEntry.COLUMN_PHONE_NUMBER),
-                        resultSet.getString(ApplicantsEntry.COLUMN_EMAIL),
-                        resultSet.getInt(ApplicantsEntry.COLUMN_APPLICATION_CODE)));
-        } catch (SQLException e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-        } finally {
-            closeConnection();
-        }
-        return applicants;
+        return getApplicantsByStatement(statement);
     }
 
     public boolean addApplicant(Applicant applicant) {
@@ -155,6 +138,10 @@ public class ApplicantsDbHelper extends DbHelper {
 
         String statement = applicantsStatementCreator.selectApplicantsByPhraseStatement(
                 searchPhrase);
+        return getApplicantsByStatement(statement);
+    }
+
+    private List<Applicant> getApplicantsByStatement(String statement) {
 
         List<Applicant> applicants = new ArrayList<>();
         try {
