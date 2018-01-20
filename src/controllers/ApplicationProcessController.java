@@ -63,6 +63,9 @@ public class ApplicationProcessController {
                 case "12":
                     addApplicant();
                     break;
+                case "13":
+                    updateApplicant();
+                    break;
                 case "0":
                     isAppRunning = false;
                     break;
@@ -200,6 +203,27 @@ public class ApplicationProcessController {
             if (isUpdated) {
                 applicationProcessView.displaySuccessfullyUpdated();
             }
+        } else {
+            applicationProcessView.displayEntryNotExistsMessage();
+        }
+    }
+
+    private void updateApplicant() {
+
+        int id = getIntUserInput("Enter applicant ID: ");
+        if (applicantsDbHelper.getApplicantById(id) != null) {
+            String firstName = getStringUserInput("Enter first name (or 0 to skip): ");
+            String lastName = getStringUserInput("Enter last name (or 0 to skip): ");
+            String phoneNumber = getStringUserInput("Enter phone number (or 0 to skip): ");
+            String email = getStringUserInput("Enter email (or 0 to skip): ");
+            int applicationCode = getIntUserInput("Enter application code: ");
+            boolean isUpdated = applicantsDbHelper.updateApplicantById(new Applicant(id, firstName, lastName,
+                    phoneNumber, email, applicationCode));
+            if (isUpdated) {
+                applicationProcessView.displaySuccessfullyUpdated();
+            }
+        } else {
+            applicationProcessView.displayEntryNotExistsMessage();
         }
     }
 }

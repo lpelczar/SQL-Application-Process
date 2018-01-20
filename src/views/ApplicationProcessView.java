@@ -88,12 +88,17 @@ public class ApplicationProcessView {
     }
 
     public void displaySuccessfullyAdded() {
-        System.out.println("Successfully added!");
+        System.out.println("Entry successfully added!");
         displayPressAnyKeyToContinueMessage();
     }
 
     public void displaySuccessfullyUpdated() {
-        System.out.println("Successfully updated!");
+        System.out.println("Entry successfully updated!");
+        displayPressAnyKeyToContinueMessage();
+    }
+
+    public void displayEntryNotExistsMessage() {
+        System.out.println("Entry with given ID not exists!");
         displayPressAnyKeyToContinueMessage();
     }
 

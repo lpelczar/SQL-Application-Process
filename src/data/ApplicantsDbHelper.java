@@ -170,4 +170,61 @@ public class ApplicantsDbHelper extends DbHelper {
         return false;
     }
 
+    public Applicant getApplicantById(int id) {
+
+        Applicant applicant = null;
+        String selectStatement = "SELECT * FROM " + ApplicantsEntry.TABLE_NAME +
+                " WHERE " + ApplicantsEntry.COLUMN_ID + " = " + id + ";" ;
+
+        openConnection();
+        try {
+            ResultSet resultSet = query(selectStatement);
+            while (resultSet.next())
+                applicant = new Applicant(
+                        resultSet.getInt(ApplicantsEntry.COLUMN_ID),
+                        resultSet.getString(ApplicantsEntry.COLUMN_FIRST_NAME),
+                        resultSet.getString(ApplicantsEntry.COLUMN_LAST_NAME),
+                        resultSet.getString(ApplicantsEntry.COLUMN_PHONE_NUMBER),
+                        resultSet.getString(ApplicantsEntry.COLUMN_EMAIL),
+                        resultSet.getInt(ApplicantsEntry.COLUMN_APPLICATION_CODE));
+        } catch (SQLException e) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        } finally {
+            closeConnection();
+        }
+        return applicant;
+    }
+
+    public boolean updateApplicantById(Applicant applicant) {
+
+        String updateStatement = createUpdateStatement(applicant);
+
+        openConnection();
+        try {
+            update(updateStatement);
+            return true;
+        } catch (SQLException e) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        } finally {
+            closeConnection();
+        }
+        return false;
+    }
+
+    private String createUpdateStatement(Applicant applicant) {
+
+        String updateStatement = "UPDATE " + ApplicantsEntry.TABLE_NAME + " SET ";
+        if (!applicant.getFirstName().equals("0"))
+            updateStatement += ApplicantsEntry.COLUMN_FIRST_NAME + " = '" + applicant.getFirstName() + "',";
+        if (!applicant.getLastName().equals("0"))
+            updateStatement += ApplicantsEntry.COLUMN_LAST_NAME + " = '" + applicant.getLastName() + "',";
+        if (!applicant.getPhoneNumber().equals("0"))
+            updateStatement += ApplicantsEntry.COLUMN_PHONE_NUMBER + " = '" + applicant.getPhoneNumber() + "',";
+        if (!applicant.getEmail().equals("0"))
+            updateStatement += ApplicantsEntry.COLUMN_EMAIL + " = '" + applicant.getEmail() + "',";
+        updateStatement += ApplicantsEntry.COLUMN_APPLICATION_CODE + " = " + applicant.getApplicationCode() +
+                " WHERE " + ApplicantsEntry.COLUMN_ID + " = " + applicant.getId() + ";";
+        return updateStatement;
+    }
+
 }
