@@ -233,7 +233,7 @@ public class ApplicationProcessController {
         List<Entry> entries = new ArrayList<>();
         String searchPhrase = getStringUserInput("Enter search phrase to search through database: ");
         entries.addAll(mentorsDbHelper.getMentorsByPhrase(searchPhrase));
-        //entries.addAll(applicantsDbHelper.getApplicantsByPhrase(searchPhrase));
+        entries.addAll(applicantsDbHelper.getApplicantsByPhrase(searchPhrase));
         applicationProcessView.displayEntries(entries);
     }
 }

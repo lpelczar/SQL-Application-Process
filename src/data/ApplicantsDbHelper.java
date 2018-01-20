@@ -227,4 +227,40 @@ public class ApplicantsDbHelper extends DbHelper {
         return updateStatement;
     }
 
+    public List<Applicant> getApplicantsByPhrase(String searchPhrase) {
+
+        String selectSqlStatement = createSelectApplicantsByPhraseStatement(searchPhrase);
+
+        List<Applicant> applicants = new ArrayList<>();
+        openConnection();
+        try {
+            ResultSet resultSet = query(selectSqlStatement);
+            while (resultSet.next())
+                applicants.add(new Applicant(
+                        resultSet.getInt(ApplicantsEntry.COLUMN_ID),
+                        resultSet.getString(ApplicantsEntry.COLUMN_FIRST_NAME),
+                        resultSet.getString(ApplicantsEntry.COLUMN_LAST_NAME),
+                        resultSet.getString(ApplicantsEntry.COLUMN_PHONE_NUMBER),
+                        resultSet.getString(ApplicantsEntry.COLUMN_EMAIL),
+                        resultSet.getInt(ApplicantsEntry.COLUMN_APPLICATION_CODE)));
+        } catch (SQLException e) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        } finally {
+            closeConnection();
+        }
+        return applicants;
+    }
+
+    private String createSelectApplicantsByPhraseStatement(String searchPhrase) {
+
+        return "SELECT * FROM " + ApplicantsEntry.TABLE_NAME +
+                " WHERE " +
+                ApplicantsEntry.COLUMN_FIRST_NAME + " LIKE '%" + searchPhrase + "%' OR " +
+                ApplicantsEntry.COLUMN_LAST_NAME + " LIKE '%" + searchPhrase + "%' OR " +
+                ApplicantsEntry.COLUMN_PHONE_NUMBER + " LIKE '%" + searchPhrase + "%' OR " +
+                ApplicantsEntry.COLUMN_EMAIL + " LIKE '%" + searchPhrase + "%' OR " +
+                ApplicantsEntry.COLUMN_APPLICATION_CODE + " LIKE '%" + searchPhrase + "%' " +
+                ";" ;
+    }
+
 }
