@@ -20,7 +20,7 @@ public class MentorsDbHelper extends DbHelper {
             results.add(resultSet.getString(MentorsEntry.COLUMN_FIRST_NAME) + " " +
                         resultSet.getString(MentorsEntry.COLUMN_LAST_NAME));
         } catch (SQLException e) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
         } finally {
             closeConnection();
         }
@@ -37,7 +37,7 @@ public class MentorsDbHelper extends DbHelper {
             while (resultSet.next())
                 results.add(resultSet.getString(MentorsEntry.COLUMN_NICK_NAME));
         } catch (SQLException e) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
         } finally {
             closeConnection();
         }
@@ -62,7 +62,7 @@ public class MentorsDbHelper extends DbHelper {
                         resultSet.getString(MentorsEntry.COLUMN_CITY),
                         resultSet.getInt(MentorsEntry.COLUMN_FAVOURITE_NUMBER)));
         } catch (SQLException e) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
         } finally {
             closeConnection();
         }
@@ -93,7 +93,7 @@ public class MentorsDbHelper extends DbHelper {
                         resultSet.getString(MentorsEntry.COLUMN_CITY),
                         resultSet.getInt(MentorsEntry.COLUMN_FAVOURITE_NUMBER));
         } catch (SQLException e) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
         } finally {
             closeConnection();
         }
@@ -124,7 +124,7 @@ public class MentorsDbHelper extends DbHelper {
                         resultSet.getString(MentorsEntry.COLUMN_CITY),
                         resultSet.getInt(MentorsEntry.COLUMN_FAVOURITE_NUMBER)));
         } catch (SQLException e) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
         } finally {
             closeConnection();
         }
