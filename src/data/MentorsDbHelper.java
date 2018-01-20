@@ -1,6 +1,5 @@
 package data;
 
-
 import data.MentorsContract.MentorsEntry;
 import models.*;
 import java.sql.*;
@@ -8,14 +7,13 @@ import java.util.*;
 
 public class MentorsDbHelper extends DbHelper {
 
+    private MentorsStatementCreator mentorsStatementCreator = new MentorsStatementCreator();
+
     public List<String> getFirstNameAndLastNameColumn() {
 
-        String statement = "SELECT " +
-                           MentorsEntry.COLUMN_FIRST_NAME + "," +
-                           MentorsEntry.COLUMN_LAST_NAME +
-                           " FROM " + MentorsEntry.TABLE_NAME + ";";
-        List<String> results = new ArrayList<>();
+        String statement = mentorsStatementCreator.selectFirstNameAndLastNameFromMentorsStatement();
 
+        List<String> results = new ArrayList<>();
         try {
         ResultSet resultSet = query(statement);
         while (resultSet.next())
@@ -31,10 +29,9 @@ public class MentorsDbHelper extends DbHelper {
 
     public List<String> getNickNamesOfMentorsAtMiskolc() {
 
-        String statement = "SELECT " + MentorsEntry.COLUMN_NICK_NAME +
-                           " FROM " + MentorsEntry.TABLE_NAME +" WHERE city = \"Miskolc\";";
-        List<String> results = new ArrayList<>();
+        String statement = mentorsStatementCreator.selectNickNameOfMentorsAtMiskolcStatement();
 
+        List<String> results = new ArrayList<>();
         try {
             ResultSet resultSet = query(statement);
             while (resultSet.next())
@@ -49,7 +46,7 @@ public class MentorsDbHelper extends DbHelper {
 
     public List<Entry> getAllMentors() {
 
-        String statement = "SELECT * FROM " + MentorsEntry.TABLE_NAME + ";" ;
+        String statement = mentorsStatementCreator.selectAllMentorsStatement();
 
         List<Entry> mentors = new ArrayList<>();
         try {
@@ -74,36 +71,15 @@ public class MentorsDbHelper extends DbHelper {
 
     public boolean addMentor(Mentor mentor) {
 
-        String insertStatement = createInsertApplicantStatement(mentor);
+        String insertStatement = mentorsStatementCreator.insertMentorsStatement(mentor);
         return update(insertStatement);
-    }
-
-    private String createInsertApplicantStatement(Mentor mentor) {
-
-        return "INSERT INTO " + MentorsEntry.TABLE_NAME + " (" +
-                MentorsEntry.COLUMN_FIRST_NAME + "," +
-                MentorsEntry.COLUMN_LAST_NAME + "," +
-                MentorsEntry.COLUMN_NICK_NAME + "," +
-                MentorsEntry.COLUMN_PHONE_NUMBER + "," +
-                MentorsEntry.COLUMN_EMAIL + "," +
-                MentorsEntry.COLUMN_CITY + "," +
-                MentorsEntry.COLUMN_FAVOURITE_NUMBER + ")" +
-                " VALUES (" +
-                "'" + mentor.getFirstName() + "'," +
-                "'" + mentor.getLastName() + "'," +
-                "'" + mentor.getNickName() + "'," +
-                "'" + mentor.getPhoneNumber() + "'," +
-                "'" + mentor.getEmail() + "'," +
-                "'" + mentor.getCity() + "'," +
-                mentor.getFavouriteNumber() + ");" ;
     }
 
     public Mentor getMentorById(int id) {
 
-        Mentor mentor = null;
-        String selectStatement = "SELECT * FROM " + MentorsEntry.TABLE_NAME +
-                " WHERE " + MentorsEntry.COLUMN_ID + " = " + id + ";" ;
+        String selectStatement = mentorsStatementCreator.selectMentorByIdStatement(id);
 
+        Mentor mentor = null;
         try {
             ResultSet resultSet = query(selectStatement);
             while (resultSet.next())
@@ -126,33 +102,13 @@ public class MentorsDbHelper extends DbHelper {
 
     public boolean updateMentorById(Mentor mentor) {
 
-        String updateStatement = createUpdateStatement(mentor);
+        String updateStatement = mentorsStatementCreator.updateMentorStatement(mentor);
         return update(updateStatement);
-    }
-
-    private String createUpdateStatement(Mentor mentor) {
-
-        String updateStatement = "UPDATE " + MentorsEntry.TABLE_NAME + " SET ";
-        if (!mentor.getFirstName().equals("0"))
-            updateStatement += MentorsEntry.COLUMN_FIRST_NAME + " = '" + mentor.getFirstName() + "',";
-        if (!mentor.getLastName().equals("0"))
-            updateStatement += MentorsEntry.COLUMN_LAST_NAME + " = '" + mentor.getLastName() + "',";
-        if (!mentor.getNickName().equals("0"))
-            updateStatement += MentorsEntry.COLUMN_NICK_NAME + " = '" + mentor.getNickName() + "',";
-        if (!mentor.getPhoneNumber().equals("0"))
-            updateStatement += MentorsEntry.COLUMN_PHONE_NUMBER + " = '" + mentor.getPhoneNumber() + "',";
-        if (!mentor.getEmail().equals("0"))
-            updateStatement += MentorsEntry.COLUMN_EMAIL + " = '" + mentor.getEmail() + "',";
-        if (!mentor.getCity().equals("0"))
-            updateStatement += MentorsEntry.COLUMN_CITY + " = '" + mentor.getCity() + "',";
-        updateStatement += MentorsEntry.COLUMN_FAVOURITE_NUMBER + " = " + mentor.getFavouriteNumber() +
-        " WHERE " + MentorsEntry.COLUMN_ID + " = " + mentor.getId() + ";";
-        return updateStatement;
     }
 
     public List<Mentor> getMentorsByPhrase(String searchPhrase) {
 
-        String selectSqlStatement = createSelectMentorsByPhraseStatement(searchPhrase);
+        String selectSqlStatement = mentorsStatementCreator.selectMentorsByPhraseStatement(searchPhrase);
 
         List<Mentor> mentors = new ArrayList<>();
         try {
@@ -173,19 +129,5 @@ public class MentorsDbHelper extends DbHelper {
             closeConnection();
         }
         return mentors;
-    }
-
-    private String createSelectMentorsByPhraseStatement(String searchPhrase) {
-
-        return "SELECT * FROM " + MentorsEntry.TABLE_NAME +
-               " WHERE " +
-                MentorsEntry.COLUMN_FIRST_NAME + " LIKE '%" + searchPhrase + "%' OR " +
-                MentorsEntry.COLUMN_LAST_NAME + " LIKE '%" + searchPhrase + "%' OR " +
-                MentorsEntry.COLUMN_NICK_NAME + " LIKE '%" + searchPhrase + "%' OR " +
-                MentorsEntry.COLUMN_PHONE_NUMBER + " LIKE '%" + searchPhrase + "%' OR " +
-                MentorsEntry.COLUMN_EMAIL + " LIKE '%" + searchPhrase + "%' OR " +
-                MentorsEntry.COLUMN_CITY + " LIKE '%" + searchPhrase + "%' OR " +
-                MentorsEntry.COLUMN_FAVOURITE_NUMBER + " LIKE '%" + searchPhrase + "%' " +
-                ";" ;
     }
 }
