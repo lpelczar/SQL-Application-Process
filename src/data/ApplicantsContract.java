@@ -1,6 +1,6 @@
 package data;
 
-public class ApplicantsContract {
+class ApplicantsContract {
 
     public static final class ApplicantsEntry {
         public static final String TABLE_NAME = "applicants";
