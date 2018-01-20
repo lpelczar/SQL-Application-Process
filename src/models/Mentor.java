@@ -1,6 +1,6 @@
 package models;
 
-public class Mentor {
+public class Mentor implements Entry {
 
     private int id;
     private String firstName;

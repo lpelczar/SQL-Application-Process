@@ -1,6 +1,7 @@
 package views;
 
 import models.Applicant;
+import models.Entry;
 import models.Mentor;
 
 import java.util.*;
@@ -99,6 +100,18 @@ public class ApplicationProcessView {
 
     public void displayEntryNotExistsMessage() {
         System.out.println("Entry with given ID not exists!");
+        displayPressAnyKeyToContinueMessage();
+    }
+
+    public void displayEntries(List<Entry> entries) {
+        System.out.println("\nResults:");
+        if (entries.isEmpty()) {
+            System.out.println("Not found!");
+        } else {
+            for (Entry e : entries) {
+                System.out.println(e);
+            }
+        }
         displayPressAnyKeyToContinueMessage();
     }
 

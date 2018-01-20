@@ -1,6 +1,6 @@
 package models;
 
-public class Applicant {
+public class Applicant implements Entry {
 
     private int id;
     private String firstName;

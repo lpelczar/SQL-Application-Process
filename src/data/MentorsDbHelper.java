@@ -174,4 +174,44 @@ public class MentorsDbHelper extends DbHelper {
         " WHERE " + MentorsEntry.COLUMN_ID + " = " + mentor.getId() + ";";
         return updateStatement;
     }
+
+    public List<Mentor> getMentorsByPhrase(String searchPhrase) {
+
+        String selectSqlStatement = createSelectMentorsByPhraseStatement(searchPhrase);
+
+        List<Mentor> mentors = new ArrayList<>();
+        openConnection();
+        try {
+            ResultSet resultSet = query(selectSqlStatement);
+            while (resultSet.next())
+                mentors.add(new Mentor(
+                        resultSet.getInt(MentorsEntry.COLUMN_ID),
+                        resultSet.getString(MentorsEntry.COLUMN_FIRST_NAME),
+                        resultSet.getString(MentorsEntry.COLUMN_LAST_NAME),
+                        resultSet.getString(MentorsEntry.COLUMN_NICK_NAME),
+                        resultSet.getString(MentorsEntry.COLUMN_PHONE_NUMBER),
+                        resultSet.getString(MentorsEntry.COLUMN_EMAIL),
+                        resultSet.getString(MentorsEntry.COLUMN_CITY),
+                        resultSet.getInt(MentorsEntry.COLUMN_FAVOURITE_NUMBER)));
+        } catch (SQLException e) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        } finally {
+            closeConnection();
+        }
+        return mentors;
+    }
+
+    private String createSelectMentorsByPhraseStatement(String searchPhrase) {
+
+        return "SELECT * FROM " + MentorsEntry.TABLE_NAME +
+               " WHERE " +
+                MentorsEntry.COLUMN_FIRST_NAME + " LIKE '%" + searchPhrase + "%' OR " +
+                MentorsEntry.COLUMN_LAST_NAME + " LIKE '%" + searchPhrase + "%' OR " +
+                MentorsEntry.COLUMN_NICK_NAME + " LIKE '%" + searchPhrase + "%' OR " +
+                MentorsEntry.COLUMN_PHONE_NUMBER + " LIKE '%" + searchPhrase + "%' OR " +
+                MentorsEntry.COLUMN_EMAIL + " LIKE '%" + searchPhrase + "%' OR " +
+                MentorsEntry.COLUMN_CITY + " LIKE '%" + searchPhrase + "%' OR " +
+                MentorsEntry.COLUMN_FAVOURITE_NUMBER + " LIKE '%" + searchPhrase + "%' " +
+                ";" ;
+    }
 }

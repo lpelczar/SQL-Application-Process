@@ -1,13 +1,11 @@
 package controllers;
 
-import data.ApplicantsDbHelper;
-import data.MentorsDbHelper;
-import models.Applicant;
-import models.Mentor;
-import services.IntegerChecker;
-import views.ApplicationProcessView;
+import data.*;
+import models.*;
+import services.*;
+import views.*;
 
-import java.util.List;
+import java.util.*;
 
 public class ApplicationProcessController {
 
@@ -65,6 +63,9 @@ public class ApplicationProcessController {
                     break;
                 case "13":
                     updateApplicant();
+                    break;
+                case "14":
+                    advancedSearch();
                     break;
                 case "0":
                     isAppRunning = false;
@@ -225,6 +226,15 @@ public class ApplicationProcessController {
         } else {
             applicationProcessView.displayEntryNotExistsMessage();
         }
+    }
+
+    private void advancedSearch() {
+
+        List<Entry> entries = new ArrayList<>();
+        String searchPhrase = getStringUserInput("Enter search phrase to search through database: ");
+        entries.addAll(mentorsDbHelper.getMentorsByPhrase(searchPhrase));
+        //entries.addAll(applicantsDbHelper.getApplicantsByPhrase(searchPhrase));
+        applicationProcessView.displayEntries(entries);
     }
 }
 
