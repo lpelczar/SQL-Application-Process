@@ -126,7 +126,8 @@ public class ApplicationProcessController {
     }
 
     private void listAllApplicants() {
-        applicationProcessView.displayEntries(applicantsDbHelper.getAllApplicants());
+        List<Entry> entries = new ArrayList<>(applicantsDbHelper.getAllApplicants());
+        applicationProcessView.displayEntries(entries);
     }
 
     private void addMentor() {

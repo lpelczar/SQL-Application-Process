@@ -93,11 +93,11 @@ public class ApplicantsDbHelper extends DbHelper {
         return update(deleteStatement);
     }
 
-    public List<Entry> getAllApplicants() {
+    public List<Applicant> getAllApplicants() {
 
         String statement = applicantsStatementCreator.selectAllApplicantsStatement();
 
-        List<Entry> applicants = new ArrayList<>();
+        List<Applicant> applicants = new ArrayList<>();
         try {
             ResultSet resultSet = query(statement);
             while (resultSet.next())
