@@ -2,9 +2,7 @@ package data;
 
 
 import data.MentorsContract.MentorsEntry;
-import models.Entry;
-import models.Mentor;
-
+import models.*;
 import java.sql.*;
 import java.util.*;
 
@@ -77,16 +75,7 @@ public class MentorsDbHelper extends DbHelper {
     public boolean addMentor(Mentor mentor) {
 
         String insertStatement = createInsertApplicantStatement(mentor);
-
-        try {
-            update(insertStatement);
-            return true;
-        } catch (SQLException e) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-        } finally {
-            closeConnection();
-        }
-        return false;
+        return update(insertStatement);
     }
 
     private String createInsertApplicantStatement(Mentor mentor) {
@@ -138,16 +127,7 @@ public class MentorsDbHelper extends DbHelper {
     public boolean updateMentorById(Mentor mentor) {
 
         String updateStatement = createUpdateStatement(mentor);
-
-        try {
-            update(updateStatement);
-            return true;
-        } catch (SQLException e) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-        } finally {
-            closeConnection();
-        }
-        return false;
+        return update(updateStatement);
     }
 
     private String createUpdateStatement(Mentor mentor) {

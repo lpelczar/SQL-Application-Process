@@ -42,12 +42,20 @@ class DbHelper {
         return statement.executeQuery(sqlStatement);
     }
 
-    void update(String sqlStatement) throws SQLException {
+    boolean update(String sqlStatement) {
 
-        openConnection();
-        connection.setAutoCommit(false);
-        statement = connection.createStatement();
-        statement.executeUpdate(sqlStatement);
-        connection.commit();
+        try {
+            openConnection();
+            connection.setAutoCommit(false);
+            statement = connection.createStatement();
+            statement.executeUpdate(sqlStatement);
+            connection.commit();
+            return true;
+        } catch (SQLException e) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        } finally {
+            closeConnection();
+        }
+        return false;
     }
 }

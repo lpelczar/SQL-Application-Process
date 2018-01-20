@@ -114,16 +114,7 @@ public class ApplicantsDbHelper extends DbHelper {
 
         String deleteStatement = "DELETE FROM " + ApplicantsEntry.TABLE_NAME +
                 " WHERE " + ApplicantsEntry.COLUMN_EMAIL + " LIKE " + "'%@mauriseu.net';" ;
-
-        try {
-            update(deleteStatement);
-            return true;
-        } catch (SQLException e) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-        } finally {
-            closeConnection();
-        }
-        return false;
+        return update(deleteStatement);
     }
 
     public List<Entry> getAllApplicants() {
@@ -150,17 +141,9 @@ public class ApplicantsDbHelper extends DbHelper {
     }
 
     public boolean addApplicant(Applicant applicant) {
-        String insertStatement = createAddingApplicantStatement(applicant);
 
-        try {
-            update(insertStatement);
-            return true;
-        } catch (SQLException e) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-        } finally {
-            closeConnection();
-        }
-        return false;
+        String insertStatement = createAddingApplicantStatement(applicant);
+        return update(insertStatement);
     }
 
     public Applicant getApplicantById(int id) {
@@ -190,16 +173,7 @@ public class ApplicantsDbHelper extends DbHelper {
     public boolean updateApplicantById(Applicant applicant) {
 
         String updateStatement = createUpdateStatement(applicant);
-
-        try {
-            update(updateStatement);
-            return true;
-        } catch (SQLException e) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-        } finally {
-            closeConnection();
-        }
-        return false;
+        return update(updateStatement);
     }
 
     private String createUpdateStatement(Applicant applicant) {
