@@ -188,12 +188,12 @@ public class ApplicationProcessController {
 
         int id = getIntUserInput("Enter mentor ID: ");
         if (mentorsDbHelper.getMentorById(id) != null) {
-            String firstName = getStringUserInput("Enter first name (or enter 0 to go to next field): ");
-            String lastName = getStringUserInput("Enter last name (or enter 0 to go to next field): ");
-            String nickName = getStringUserInput("Enter nick name (or enter 0 to go to next field): ");
-            String phoneNumber = getStringUserInput("Enter phone number (or enter 0 to go to next field): ");
-            String email = getStringUserInput("Enter email (or enter 0 to go to next field): ");
-            String city = getStringUserInput("Enter city (or enter 0 to go to next field): ");
+            String firstName = getStringUserInput("Enter first name (or 0 to skip): ");
+            String lastName = getStringUserInput("Enter last name (or 0 to skip): ");
+            String nickName = getStringUserInput("Enter nick name (or 0 to skip): ");
+            String phoneNumber = getStringUserInput("Enter phone number (or 0 to skip): ");
+            String email = getStringUserInput("Enter email (or 0 to skip): ");
+            String city = getStringUserInput("Enter city (or 0 to skip): ");
             int favouriteNumber = getIntUserInput("Enter favourite number: ");
             boolean isUpdated = mentorsDbHelper.updateMentorById(new Mentor(id, firstName, lastName, nickName,
                                                                  phoneNumber, email, city, favouriteNumber));
