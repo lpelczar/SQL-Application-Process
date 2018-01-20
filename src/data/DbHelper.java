@@ -6,10 +6,9 @@ class DbHelper {
 
     private static final String DATABASE_NAME = "application_process.db";
     private Connection connection;
-    private ResultSet resultSet;
     private Statement statement;
 
-    void openConnection() {
+    private void openConnection() {
 
         try {
             Class.forName("org.sqlite.JDBC");
@@ -27,8 +26,6 @@ class DbHelper {
                 connection.close();
             if (statement != null && statement.isClosed())
                 statement.close();
-            if (resultSet != null && resultSet.isClosed())
-                resultSet.close();
         } catch (SQLException e) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
         }
