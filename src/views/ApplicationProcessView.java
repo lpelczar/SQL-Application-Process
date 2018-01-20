@@ -49,8 +49,12 @@ public class ApplicationProcessView {
 
     public void displayResults(List<String> results) {
         System.out.println("\nResults:");
-        for (String s : results) {
-            System.out.println(s);
+        if (results.isEmpty()) {
+            System.out.println("Empty.");
+        } else {
+            for (String s : results) {
+                System.out.println(s);
+            }
         }
         displayPressAnyKeyToContinueMessage();
     }
