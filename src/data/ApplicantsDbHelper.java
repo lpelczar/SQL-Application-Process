@@ -31,6 +31,7 @@ public class ApplicantsDbHelper extends DbHelper {
             while (resultSet.next())
                 results.add(resultSet.getString(ApplicantsEntry.COLUMN_FULL_NAME) + " " +
                             resultSet.getString(ApplicantsEntry.COLUMN_PHONE_NUMBER));
+            resultSet.close();
         } catch (SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
         } finally {
@@ -58,6 +59,7 @@ public class ApplicantsDbHelper extends DbHelper {
                             resultSet.getString(ApplicantsEntry.COLUMN_EMAIL) + " " +
                             resultSet.getString(ApplicantsEntry.COLUMN_APPLICATION_CODE));
             }
+            resultSet.close();
         } catch (SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
         } finally {
@@ -79,6 +81,7 @@ public class ApplicantsDbHelper extends DbHelper {
             while (resultSet.next()) {
                 results.add(resultSet.getString(ApplicantsEntry.COLUMN_PHONE_NUMBER));
             }
+            resultSet.close();
         } catch (SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
         } finally {
@@ -120,6 +123,7 @@ public class ApplicantsDbHelper extends DbHelper {
                         resultSet.getString(ApplicantsEntry.COLUMN_PHONE_NUMBER),
                         resultSet.getString(ApplicantsEntry.COLUMN_EMAIL),
                         resultSet.getInt(ApplicantsEntry.COLUMN_APPLICATION_CODE));
+            resultSet.close();
         } catch (SQLException e) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
         } finally {
@@ -154,6 +158,7 @@ public class ApplicantsDbHelper extends DbHelper {
                         resultSet.getString(ApplicantsEntry.COLUMN_PHONE_NUMBER),
                         resultSet.getString(ApplicantsEntry.COLUMN_EMAIL),
                         resultSet.getInt(ApplicantsEntry.COLUMN_APPLICATION_CODE)));
+            resultSet.close();
         } catch (SQLException e) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
         } finally {
