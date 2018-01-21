@@ -21,15 +21,14 @@ class DbHelper {
 
     void closeConnection() {
 
-        try {
-            if (connection != null && connection.isClosed())
+        if (connection != null)
+            try {
                 connection.close();
-            if (statement != null && statement.isClosed())
+            } catch (SQLException e) { /*ignored*/ }
+        if (statement != null)
+            try {
                 statement.close();
-        } catch (SQLException e) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-        }
-
+            } catch (SQLException e) { /*ignored*/ }
     }
 
     ResultSet query(String sqlStatement) throws SQLException {
