@@ -1,1 +1,0 @@
-# SQL---application-process
